@@ -26,8 +26,9 @@ html {
 @theme {
   --color-secondary: #246a80;
   --color-primary: #138926;
-  --color-tertiary: #3a39d4;
+  --color-tertiary: #508899;
   --color-shade: #a1d0a8;
+  --color-text: #e7f8de;
 
   --color-background: #102107;
 }

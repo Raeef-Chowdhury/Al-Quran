@@ -1,7 +1,7 @@
 function Header() {
   return (
     <>
-      <header>
+      <header className="bg-background header ">
         <ul className="flex items-center justify-around ">
           <div className="header__title">
             <li className="text-primary transition-all transition-300ms hover:scale-110 hover:cursor-pointer text-[4.8rem] flex items-center gap-[1rem] font-bold bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent">
@@ -9,7 +9,7 @@ function Header() {
             </li>
           </div>
           <div className="header__access flex gap-24 items-center justify-between">
-            <li className="text-[2.4rem] text-secondary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade header__nav cursor-pointer rounded-xl">
+            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -26,7 +26,7 @@ function Header() {
               </svg>
               Home
             </li>
-            <li className="text-[2.4rem] text-secondary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade header__nav cursor-pointer rounded-xl">
+            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -43,7 +43,7 @@ function Header() {
               </svg>
               Surahs
             </li>
-            <li className="text-[2.4rem] text-secondary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade header__nav cursor-pointer rounded-xl">
+            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -60,7 +60,7 @@ function Header() {
               </svg>
               Duas
             </li>
-            <li className="text-[2.4rem] text-secondary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade header__nav cursor-pointer rounded-xl">
+            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -79,7 +79,7 @@ function Header() {
             </li>
           </div>
 
-          <li className="text-[2.4rem] theme__icon hover:bg-shade transition-all trasnition-300ms cursor-pointer rounded-full ">
+          <li className="text-[2.4rem] theme__icon hover:bg-shade hover:text-[#0b2026] transition-all trasnition-300ms cursor-pointer rounded-full ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
