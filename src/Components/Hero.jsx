@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import ayahQuotes from "../data/quran.json";
 import { useEffect, useState } from "react";
 
@@ -25,22 +26,18 @@ function Hero() {
         YOUR DAILY AYAH
       </p>
       <div className="daily__ayah  flex flex-col gap-[3.2rem] items-center max-w-[1200px] rounded-2xl  justify-center border-secondary border-2 ">
-        <p className="hero__text text-text text-[2.4rem] ">
-          {randomAyah.arabic}
-        </p>
-        <p className="hero__text text-text text-[2.4rem] ">
-          {randomAyah.english}
-        </p>
-        <div className="ayah__origin flex gap-[1.8rem]">
-          <p className="hero__text text-text text-[2.4rem] ">
-            Surah {randomAyah.surah} -
-          </p>
-          <p className="hero__text text-text text-[2.4rem] ">
-            {randomAyah.ayah}
-          </p>
+        <AyahText ayahText={randomAyah.arabic} />
+        <AyahText ayahText={randomAyah.english} />
+        <div className="ayah__origin flex gap-[1.8rem] items-center">
+          <AyahText ayahText={randomAyah.surah} />{" "}
+          <span className="text-[1.8rem]">-</span>
+          <AyahText ayahText={randomAyah.ayah} />
         </div>
       </div>
     </section>
   );
+}
+function AyahText({ ayahText }) {
+  return <p className="hero__text text-text text-[2.4rem] ">{ayahText}</p>;
 }
 export default Hero;

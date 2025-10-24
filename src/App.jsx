@@ -8,6 +8,10 @@ import { useState } from "react";
 //TODO:SECTION OF DUAS https://github.com/fitrahive/dua-dhikr
 //TODO:Recitation Page
 //TODO: REFACTOR HERO/HEader
+//TODO: Add surahs dynamically
+//TODO: add search functionality
+//TODO: Popular items search
+
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
   return (

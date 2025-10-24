@@ -9,6 +9,9 @@ body {
 .quran__badge {
   padding: 0.6rem 3rem;
 }
+.quran__num {
+  padding: 1.6rem;
+}
 .ayah__title {
   padding: 0.8rem 2.4rem;
 }

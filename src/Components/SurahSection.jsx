@@ -24,26 +24,48 @@ function SurahSection({ search, setSearch }) {
           {console.log(search)}
         </div>
         <ul className="quran__list grid grid-cols-4 gap-6 max-w-[1440px] mx-auto w-full">
-          <li className="quran__card bg-shade border-2 w-full border-primary hover:bg-black hover:translate-y-[-2rem] rounded-2xl  flex flex-col items-center justify-center transition-all duration-300 cursor-pointer">
-            <div className="quran__card--number text-text rounded-full bg-[#0b2026] text-[3rem] font-bold mb-2">
-              4
+          <li className="relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-2 group overflow-hidden">
+            <div className="flex justify-between items-start mb-6">
+              <div className="w-24 h-24  rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600  flex items-center justify-center shadow-lg transition-all duration-300 transform ">
+                <span className="text-white text-[3.2rem] font-bold  ">4</span>
+              </div>
             </div>
-            <div className="quran__card--names flex justify-between w-full">
-              <p className="quran__card--name text-secondary text-[2rem] font-semibold text-center">
-                An-Nisa
-              </p>
-              <p className="quran__card--arabName  text-secondary text-[2rem] font-semibold text-center">
-                الرَّحْمَٰنِ
+
+            <div className="space-y-3 mb-5">
+              <div className="flex justify-between items-center gap-4">
+                <h3 className="text-secondary text-[2.4rem] font-bold tracking-wide">
+                  An-Nisa
+                </h3>
+                <p
+                  className="text-secondary  text-[2.4rem] font-semibold"
+                  style={{ fontFamily: "serif" }}
+                >
+                  النِّسَاء
+                </p>
+              </div>
+              <p className="text-text  text-[1.8rem] text-left font-medium ">
+                The Women
               </p>
             </div>
-            <p className="quran__card--arabName text-left w-full  text-tertiary text-[2rem] font-semibold ">
-              The Opening
-            </p>
-            <div className="quran__badges w-full flex justify-around">
-              <span className="quran__badge text-[1.8rem] text-primary rounded-2xl bg-green-300 font-semibold">
-                225 Verse
-              </span>
-              <span className="quran__badge text-[1.8rem] font-semibold text-amber-600 rounded-2xl bg-amber-200">
+
+            <div className=" justify-between flex items-center gap-2 pt-4 border-t border-slate-200">
+              <div className="flex gap-[0.8rem] quran__badge text-[1.6rem] items-center rounded-full text-sm font-semibold border bg-green-300 text-green-700 border-green-200">
+                <svg
+                  className="w-8 h-8 text-green-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+                <span className="">176 Verses</span>
+              </div>
+              <span className="quran__badge text-[1.6rem] rounded-full text-sm font-semibold border bg-amber-300 text-amber-700 border-amber-200">
                 Medinah
               </span>
             </div>
