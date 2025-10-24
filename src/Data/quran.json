@@ -1,0 +1,188 @@
+{
+  "ranAyah1": [
+    {
+      "surah": "Al-Fatihah",
+      "ayah": 1,
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "english": "In the name of Allah, the Entirely Merciful, the Especially Merciful."
+    }
+  ],
+
+  "ranAyah2": [
+    {
+      "surah": "Al-Ikhlas",
+      "ayah": 1,
+      "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "english": "Say, 'He is Allah, [who is] One,'"
+    }
+  ],
+  "ranAyah3": [
+    {
+      "surah": "Ash-Sharh",
+      "ayah": 5,
+      "arabic": "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا",
+      "english": "For indeed, with hardship [will be] ease."
+    }
+  ],
+  "ranAyah4": [
+    {
+      "surah": "Al-Asr",
+      "ayah": 1,
+      "arabic": "وَالْعَصْرِ",
+      "english": "By time,"
+    }
+  ],
+  "ranAyah5": [
+    {
+      "surah": "Al-Asr",
+      "ayah": 2,
+      "arabic": "إِنَّ الْإِنسَانَ لَفِي خُسْرٍ",
+      "english": "Indeed, mankind is in loss,"
+    }
+  ],
+  "ranAyah6": [
+    {
+      "surah": "Al-Asr",
+      "ayah": 3,
+      "arabic": "إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
+      "english": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience."
+    }
+  ],
+  "ranAyah7": [
+    {
+      "surah": "Ad-Duha",
+      "ayah": 4,
+      "arabic": "وَلَلْآخِرَةُ خَيْرٌ لَّكَ مِنَ الْأُولَىٰ",
+      "english": "And the Hereafter is better for you than the first [life]."
+    }
+  ],
+  "ranAyah8": [
+    {
+      "surah": "Ash-Shams",
+      "ayah": 9,
+      "arabic": "قَدْ أَفْلَحَ مَن زَكَّاهَا",
+      "english": "He has succeeded who purifies it,"
+    }
+  ],
+  "ranAyah9": [
+    {
+      "surah": "At-Tin",
+      "ayah": 4,
+      "arabic": "لَقَدْ خَلَقْنَا الْإِنسَانَ فِي أَحْسَنِ تَقْوِيمٍ",
+      "english": "We have certainly created man in the best of stature."
+    }
+  ],
+  "ranAyah10": [
+    {
+      "surah": "Al-Kawthar",
+      "ayah": 1,
+      "arabic": "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ",
+      "english": "Indeed, We have granted you, [O Muhammad], al-Kawthar."
+    }
+  ],
+  "ranAyah11": [
+    {
+      "surah": "Al-Ma'un",
+      "ayah": 1,
+      "arabic": "أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ",
+      "english": "Have you seen the one who denies the Recompense?"
+    }
+  ],
+  "ranAyah12": [
+    {
+      "surah": "Al-Inshiqaq",
+      "ayah": 6,
+      "arabic": "يَا أَيُّهَا الْإِنسَانُ إِنَّكَ كَادِحٌ إِلَىٰ رَبِّكَ كَدْحًا فَمُلَاقِيهِ",
+      "english": "O mankind, indeed you are laboring toward your Lord with [great] exertion and will meet Him."
+    }
+  ],
+
+  "ranAyah13": [
+    {
+      "surah": "Al-Mulk",
+      "ayah": 2,
+      "arabic": "الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا",
+      "english": "He who created death and life to test you [as to] which of you is best in deed."
+    }
+  ],
+  "ranAyah14": [
+    {
+      "surah": "Al-Falaq",
+      "ayah": 1,
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "english": "Say, 'I seek refuge in the Lord of daybreak'"
+    }
+  ],
+  "ranAyah15": [
+    {
+      "surah": "An-Nas",
+      "ayah": 1,
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
+      "english": "Say, 'I seek refuge in the Lord of mankind,'"
+    }
+  ],
+  "ranAyah16": [
+    {
+      "surah": "Al-Fajr",
+      "ayah": 14,
+      "arabic": "إِنَّ رَبَّكَ لَبِالْمِرْصَادِ",
+      "english": "Indeed, your Lord is in observation."
+    }
+  ],
+  "ranAyah17": [
+    {
+      "surah": "Al-Qadr",
+      "ayah": 3,
+      "arabic": "لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ",
+      "english": "The Night of Decree is better than a thousand months."
+    }
+  ],
+  "ranAyah18": [
+    {
+      "surah": "Al-Ankabut",
+      "ayah": 69,
+      "arabic": "وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا",
+      "english": "And those who strive for Us – We will surely guide them to Our ways."
+    }
+  ],
+  "ranAyah19": [
+    {
+      "surah": "Al-Isra",
+      "ayah": 23,
+      "arabic": "وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوا إِلَّا إِيَّاهُ وَبِالْوَالِدَيْنِ إِحْسَانًا",
+      "english": "And your Lord has decreed that you worship none but Him, and that you be good to parents."
+    }
+  ],
+  "ranAyah20": [
+    {
+      "surah": "Taha",
+      "ayah": 25,
+      "arabic": "قَالَ رَبِّ اشْرَحْ لِي صَدْرِي",
+      "english": "He said, 'My Lord, expand for me my breast [with assurance].'"
+    }
+  ],
+  "ranAyah21": [
+    {
+      "surah": "Al-Mumtahanah",
+      "ayah": 7,
+      "arabic": "عَسَى اللَّهُ أَن يَجْعَلَ بَيْنَكُمْ وَبَيْنَ الَّذِينَ عَادَيْتُم مِّنْهُم مَّوَدَّةً",
+      "english": "Perhaps Allah will put, between you and those to whom you have been enemies, affection."
+    }
+  ],
+  "ranAyah22": [
+    {
+      "surah": "Al-Ahzab",
+      "ayah": 56,
+      "arabic": "إِنَّ اللَّهَ وَمَلَائِكَتَهُ يُصَلُّونَ عَلَى النَّبِيِّ",
+      "english": "Indeed, Allah and His angels send blessings upon the Prophet."
+    }
+  ],
+  "ranAyah23": [
+    {
+      "surah": "Al-Imran",
+      "ayah": 159,
+      "arabic": "فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ لِنتَ لَهُمْ",
+      "english": "So by mercy from Allah, [O Muhammad], you were lenient with them."
+    }
+  ]
+}
