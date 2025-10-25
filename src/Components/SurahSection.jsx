@@ -5,10 +5,10 @@ function SurahSection({ search, setSearch }) {
   const [surahs, setSurahs] = useState([]);
   useEffect(() => {
     const fetchSurahs = async () => {
-      const res = await fetch(`https://api.alquran.cloud/v1/quran/en.asad`);
+      const res = await fetch(`https://api.alquran.cloud/v1/surah`);
       const data = await res.json();
-      setSurahs(data.data.surahs);
-      console.log(data.data.surahs);
+      setSurahs(data.data);
+      console.log(data.data);
     };
 
     fetchSurahs();
@@ -37,35 +37,50 @@ function SurahSection({ search, setSearch }) {
           />
         </div>
         <ul className="quran__list grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
-          {surahs.map((surah) => {
-            return (
-              <QuranCard
-                key={surah.number}
-                verseLen={surah.ayahs}
-                englishName={surah.englishName}
-                arabicName={surah.name}
-                englishTranslation={surah.englishNameTranslation}
-                revelation={surah.revelationType}
-                number={surah.number}
-              />
-            );
-          })}
+          {surahs
+            .filter((surah) => surah.number < 9)
+            .map((surah) => {
+              return (
+                <QuranCard
+                  key={surah.number}
+                  verseLen={surah.ayahs}
+                  englishName={surah.englishName}
+                  arabicName={surah.name}
+                  englishTranslation={surah.englishNameTranslation}
+                  revelation={surah.revelationType}
+                  numberAyahs={surah.numberOfAyahs}
+                  number={surah.number}
+                />
+              );
+            })}
         </ul>
+        <button className="hover:cursor-pointer cta__surahs text-text font-semibold group  transition-all transition-300ms flex gap-[0.8rem] items-center bg-primary text-[1.8rem]  mx-auto rounded-full border-shade border-4">
+          {" "}
+          View All Surahs
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 60 24"
+            className="w-16 h-6 transition-transform duration-300 group-hover:translate-x-3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <line x1="0" y1="12" x2="50" y2="12" />
+            <polyline points="40,4 52,12 40,20" />
+          </svg>
+        </button>
       </section>
     </>
   );
 }
 function QuranCard({
-  verseLen,
+  numberAyahs,
   englishName,
   arabicName,
   englishTranslation,
   revelation,
   number,
 }) {
-  const verse = verseLen.length;
-  console.log(verse);
-
   return (
     <li className="max-h-[40rem] relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-2 group overflow-hidden">
       <div className="flex justify-between items-start mb-6">
@@ -98,7 +113,7 @@ function QuranCard({
       <div className=" justify-between flex items-center gap-2 pt-4 border-t border-slate-200">
         <div
           className={`flex gap-[0.8rem] quran__badge ${
-            verse > 100 ? "text-[1.2rem]" : "text-[1.4rem]"
+            numberAyahs > 100 ? "text-[1.2rem]" : "text-[1.4rem]"
           } items-center rounded-full text-sm font-semibold border bg-green-300 text-green-700 border-green-200`}
         >
           <svg
@@ -114,7 +129,7 @@ function QuranCard({
               d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
             />
           </svg>
-          <span className="">{verse} Verses</span>
+          <span className="">{numberAyahs} Verses</span>
         </div>
         <span className="quran__badge text-[1.6rem] rounded-full text-sm font-semibold border bg-amber-300 text-amber-700 border-amber-200">
           {revelation}

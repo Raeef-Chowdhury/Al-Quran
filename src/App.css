@@ -5,6 +5,15 @@
 }
 body {
   background-color: #102107;
+  padding-bottom: 16rem;
+  scroll-behavior: smooth;
+}
+html {
+  scroll-behavior: smooth;
+}
+.cta__surahs {
+  margin-top: 8rem;
+  padding: 1.6rem 4rem;
 }
 .quran__badge {
   padding: 0.6rem 3rem;

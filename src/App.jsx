@@ -11,6 +11,7 @@ import { useState } from "react";
 //TODO: Add surahs dynamically
 //TODO: add search functionality
 //TODO: Popular items search
+//TODO:Sticky Nav
 
 function App() {
   const [quranSearch, setQuranSearch] = useState("");

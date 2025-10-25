@@ -15,7 +15,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body {
+  background-color: #102107;
+  padding-bottom: 16rem;
+  scroll-behaviour: smooth;
+}
 html {
   font-size: 62.5%;
   overflow-x: hidden;
