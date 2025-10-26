@@ -39,7 +39,7 @@ function SurahSection({ search, setSearch }) {
         </div>
         <ul className="quran__list grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
           {surahs
-            .filter((surah) => surah.number < 115)
+            .filter((surah) => surah.number < 8)
             .map((surah) => {
               return (
                 <QuranCard
@@ -55,21 +55,23 @@ function SurahSection({ search, setSearch }) {
               );
             })}
         </ul>
-        <button className="hover:cursor-pointer cta__surahs text-text font-semibold group  transition-all transition-300ms flex gap-[0.8rem] items-center bg-primary text-[1.8rem]  mx-auto rounded-full border-shade border-4">
-          {" "}
-          View All Surahs
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 60 24"
-            className="w-16 h-6 transition-transform duration-300 group-hover:translate-x-3"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <line x1="0" y1="12" x2="50" y2="12" />
-            <polyline points="40,4 52,12 40,20" />
-          </svg>
-        </button>
+        <Link to={"/surahs"}>
+          <button className="hover:cursor-pointer cta__surahs text-text font-semibold group  transition-all transition-300ms flex gap-[0.8rem] items-center bg-primary text-[1.8rem]  mx-auto rounded-full border-shade border-4">
+            {" "}
+            View All Surahs
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 60 24"
+              className="w-16 h-6 transition-transform duration-300 group-hover:translate-x-3"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="0" y1="12" x2="50" y2="12" />
+              <polyline points="40,4 52,12 40,20" />
+            </svg>
+          </button>
+        </Link>
       </section>
     </>
   );
