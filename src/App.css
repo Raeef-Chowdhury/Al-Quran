@@ -10,6 +10,7 @@ body {
 }
 html {
   scroll-behavior: smooth;
+  background-color: #102107;
 }
 .cta__surahs {
   margin-top: 8rem;

@@ -12,6 +12,7 @@ import { useState } from "react";
 //TODO: add search functionality
 //TODO: Popular items search
 //TODO:Sticky Nav
+//TODO: Surah Progress Bar
 
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
