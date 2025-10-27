@@ -1,20 +1,7 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-function SurahSection({ search, setSearch }) {
-  const [surahs, setSurahs] = useState([]);
-  useEffect(() => {
-    const fetchSurahs = async () => {
-      const res = await fetch(`https://api.alquran.cloud/v1/surah`);
-      const data = await res.json();
-      setSurahs(data.data);
-      console.log(data.data);
-    };
-
-    fetchSurahs();
-  }, []);
-
+function SurahSection({ search, setSearch, surahs }) {
   return (
     <>
       <section

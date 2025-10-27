@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <>
@@ -9,7 +10,7 @@ function Header() {
             </li>
           </div>
           <div className="header__access flex gap-24 items-center justify-between">
-            <a href="#home" className="flex items-center gap-[1rem]">
+            <Link to="/home" className="flex items-center gap-[1rem]">
               <li className="text-[2.4rem] text-tertiary  flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +28,7 @@ function Header() {
                 </svg>
                 Home
               </li>
-            </a>
+            </Link>
             <a href="#surahs" className="flex items-center gap-[1rem]">
               <li className="text-[2.4rem] flex items-center gap-[1rem]  text-tertiary  transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
                 <svg

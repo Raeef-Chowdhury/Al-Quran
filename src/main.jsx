@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SurahSection from "./Components/SurahSection.jsx";
+import SurahPage from "./Components/SurahPage.jsx";
 import NotFoundPage from "./Components/NotFoundPage.jsx";
 import SurahDetails from "./Components/SurahDetails.jsx";
 const router = createBrowserRouter([
@@ -12,8 +12,12 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/home",
+    element: <App />,
+  },
+  {
     path: "/surahs",
-    element: <SurahSection />,
+    element: <SurahPage />,
   },
 
   {

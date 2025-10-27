@@ -8,6 +8,7 @@ const SurahDetails = () => {
   const [surah, setSurah] = useState(null);
   const [translation, setTranslation] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const scrollToEnd = () => {
     endOfSurah.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -38,13 +39,31 @@ const SurahDetails = () => {
 
     fetchSurah();
   }, [id]);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (scrollTop / docHeight) * 100;
+      setScrollProgress(scrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   if (loading || !surah) {
     return <p className="text-text">Loading surah {id}...</p>;
   }
-
   console.log(surah, translation);
   return (
     <div className="max-w-[1440px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
+      {" "}
+      <div className="fixed top-0 left-0 w-full h-[8px] bg-background/5 z-[9999]">
+        <div
+          className="h-full bg-primary transition-all duration-200 ease-linear"
+          style={{ width: `${scrollProgress}%` }}
+        ></div>
+      </div>
       <div ref={startOfSurah}></div>
       <h1 className="text-[3.6rem] tracking-widest mb-[1.8rem] text-text font-bold pt-[3.6rem] uppercase">
         Surah {surah.englishName}
