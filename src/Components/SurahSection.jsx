@@ -14,7 +14,7 @@ function SurahSection({ search, setSearch, surahs }) {
           </h2>
           <p className="text-text text-[2.4rem] surahs__text">
             Discover all 114 Chapters of the Quran
-          </p>
+          </p>{" "}
           <input
             className="text-secondary text-[1.8rem] w-full outline-none max-w-[50%] mx-auto  flex-none surah__input bg-text border-3  border-tertiary rounded-xl "
             id="searchbar"
@@ -26,7 +26,7 @@ function SurahSection({ search, setSearch, surahs }) {
         </div>
         <ul className="quran__list grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
           {surahs
-            .filter((surah) => surah.number < 8)
+            .filter((surah) => surah.number < 9)
             .map((surah) => {
               return (
                 <QuranCard
