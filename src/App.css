@@ -31,13 +31,26 @@ html {
 .quran__card {
   padding: 1.6rem;
 }
+.quran__page--card {
+  animation: comeIn 600ms;
+}
+@keyframes comeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
 .quran__card--number {
   padding: 0.8rem 2.4rem;
   margin-bottom: 1.6rem;
 }
 .quran__list {
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 .surah__section {
   margin-top: 6.4rem;

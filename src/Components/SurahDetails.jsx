@@ -43,7 +43,7 @@ const SurahDetails = () => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+        document.documentElement.scrollHeight - window.innerHeight + 1;
       const scrolled = (scrollTop / docHeight) * 100;
       setScrollProgress(scrolled);
     };

@@ -7,6 +7,7 @@ function SurahPage() {
   const [surahs, setSurahs] = useState([]);
   const [allSurahs, setAllSurahs] = useState([]);
   const [bgState, setBgState] = useState("all");
+
   useEffect(() => {
     const fetchSurahs = async () => {
       const res = await fetch(`https://api.alquran.cloud/v1/surah`);
@@ -17,6 +18,26 @@ function SurahPage() {
 
     fetchSurahs();
   }, []);
+  const filterSearch = (search) => {
+    const filtered = allSurahs.filter(
+      (s) =>
+        s.englishName
+          .toLowerCase()
+          .replace(/-/, " ")
+          .includes(search.toLowerCase()) ||
+        s.englishNameTranslation.toLowerCase().includes(search.toLowerCase()) ||
+        s.number
+          .toString()
+          .toLowerCase()
+          .replace(/-/, " ")
+          .includes(search.toLowerCase())
+    );
+
+    setSurahs(filtered);
+  };
+  useEffect(() => {
+    filterSearch(quranSearch);
+  }, [quranSearch]);
   function setShort() {
     const filtered = allSurahs.filter((s) => s.numberOfAyahs < 20);
 
@@ -46,7 +67,7 @@ function SurahPage() {
   return (
     <>
       <Header />
-      <main className="max-w-[1440px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
+      <main className="max-w-[1598px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
         <div className="flex flex-col items-center gap-[2.4rem]">
           <h1 className="text-shade text-[6.4rem] border-b-amber-500 border-b-8 mt-[4.8rem] ">
             All Surahs
@@ -55,10 +76,10 @@ function SurahPage() {
             Browse and read from all 114 Surahs of the Quran
           </p>
           <input
-            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-none  px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
+            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
             id="searchbar"
             type="text"
-            placeholder="Search by name here..."
+            placeholder="Search by name,number or translation here..."
             value={quranSearch}
             onChange={(e) => setQuranSearch(e.target.value)}
           />
@@ -117,6 +138,29 @@ function SurahPage() {
           })}
         </ul>
       </main>
+      <button className="mt-[6rem] ">
+        <Link
+          className="text-[1.8rem] rounded-xl px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
+          to="/"
+        >
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-12 w-12"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1V9.75z"
+            />
+          </svg>
+          Back to Homepage
+        </Link>
+      </button>
     </>
   );
 }
@@ -129,25 +173,25 @@ function QuranCard({
   number,
 }) {
   return (
-    <li className="max-h-[40rem] relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-2 group overflow-hidden">
+    <li className="max-h-[40rem]  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
       <Link to={`/surahs/${number}`}>
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-center w-full mb-6">
           <div className="w-24 h-24  rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600  flex items-center justify-center shadow-lg transition-all duration-300 transform ">
             <span className="text-white text-[3.2rem] font-bold  ">
               {number}
-            </span>
+            </span>{" "}
           </div>
+          <h3
+            className={`text-secondary ${
+              englishName.length > 12 ? "text-[1.8rem]" : "text-[2.4rem]"
+            } font-bold tracking-wide`}
+          >
+            {englishName}
+          </h3>
         </div>
 
-        <div className="space-y-3 mb-5">
+        <div className="space-y-3 mb-5 flex justify-between items-start ">
           <div className="flex justify-between items-center gap-4">
-            <h3
-              className={`text-secondary ${
-                englishName.length > 12 ? "text-[1.8rem]" : "text-[2.4rem]"
-              } font-bold tracking-wide`}
-            >
-              {englishName}
-            </h3>
             <p
               className="text-secondary  text-[2.4rem] font-semibold"
               style={{ fontFamily: "serif" }}

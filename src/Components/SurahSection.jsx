@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-function SurahSection({ search, setSearch, surahs }) {
+function SurahSection({ surahs }) {
   return (
     <>
       <section
@@ -15,14 +15,6 @@ function SurahSection({ search, setSearch, surahs }) {
           <p className="text-text text-[2.4rem] surahs__text">
             Discover all 114 Chapters of the Quran
           </p>{" "}
-          <input
-            className="text-secondary text-[1.8rem] w-full outline-none max-w-[50%] mx-auto  flex-none surah__input bg-text border-3  border-tertiary rounded-xl "
-            id="searchbar"
-            type="text"
-            placeholder="Search by name here..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
         </div>
         <ul className="quran__list grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
           {surahs
@@ -72,7 +64,7 @@ function QuranCard({
   number,
 }) {
   return (
-    <li className="max-h-[40rem] relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-2 group overflow-hidden">
+    <li className="max-h-[40rem] relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card bg-shade/10 border-2 border-slate-300 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-2 group overflow-hidden">
       <Link to={`/surahs/${number}`}>
         <div className="flex justify-between items-start mb-6">
           <div className="w-24 h-24  rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600  flex items-center justify-center shadow-lg transition-all duration-300 transform ">
@@ -103,7 +95,7 @@ function QuranCard({
           </p>
         </div>
 
-        <div className=" justify-between flex items-center gap-2 pt-4 border-t border-slate-200">
+        <div className=" justify-between flex items-center gap-2 pt-4 ">
           <div
             className={`flex gap-[0.8rem] quran__badge ${
               numberAyahs > 100 ? "text-[1.2rem]" : "text-[1.4rem]"

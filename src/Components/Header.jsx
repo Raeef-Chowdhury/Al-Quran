@@ -1,17 +1,31 @@
-import { Link } from "react-router-dom";
-function Header() {
+/* eslint-disable react/prop-types */
+import { Link, useLocation } from "react-router-dom";
+function Header({ bgState, setBgState }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const setHome = () => setBgState("Home");
+  const setSurahs = () => setBgState("Surahs");
+  const setDuas = () => setBgState("Duas");
+  const setRecitations = () => setBgState("Recitations");
   return (
     <>
       <header className="bg-background header ">
         <ul className="flex items-center justify-around ">
           <div className="header__title">
-            <li className="text-primary transition-all transition-300ms hover:scale-110 hover:cursor-pointer text-[4.8rem] flex items-center gap-[1rem] font-bold bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent">
+            <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer text-[4.8rem] flex items-center gap-[1rem] font-bold bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent">
               Al-Quran
             </li>
           </div>
           <div className="header__access flex gap-24 items-center justify-between">
             <Link to="/home" className="flex items-center gap-[1rem]">
-              <li className="text-[2.4rem] text-tertiary  flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
+              <li
+                onClick={setHome}
+                className={`text-[2.4rem] ${
+                  currentPath === "/home"
+                    ? "bg-shade text-[#0b2026]"
+                    : "text-tertiary"
+                }  flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -29,8 +43,15 @@ function Header() {
                 Home
               </li>
             </Link>
-            <a href="#surahs" className="flex items-center gap-[1rem]">
-              <li className="text-[2.4rem] flex items-center gap-[1rem]  text-tertiary  transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
+            <Link to="/surahs" className="flex items-center gap-[1rem]">
+              <li
+                onClick={setSurahs}
+                className={`text-[2.4rem] ${
+                  currentPath === "/surahs"
+                    ? "bg-shade text-[#0b2026]"
+                    : "text-tertiary"
+                } flex items-center gap-[1rem]  transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -47,8 +68,13 @@ function Header() {
                 </svg>
                 Surahs
               </li>
-            </a>
-            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
+            </Link>
+            <li
+              onClick={setDuas}
+              className={`text-[2.4rem] ${
+                bgState === "Duas" ? "bg-shade text-[#0b2026]" : "text-tertiary"
+              }  flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -65,7 +91,14 @@ function Header() {
               </svg>
               Duas
             </li>
-            <li className="text-[2.4rem] text-tertiary flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl">
+            <li
+              onClick={setRecitations}
+              className={`text-[2.4rem] ${
+                bgState === "Recitations"
+                  ? "bg-shade text-[#0b2026]"
+                  : "text-tertiary"
+              } flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
