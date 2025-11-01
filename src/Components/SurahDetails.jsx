@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+
 const SurahDetails = () => {
   const endOfSurah = useRef(null);
   const startOfSurah = useRef(null);
@@ -157,7 +158,6 @@ const SurahDetails = () => {
             className="text-[1.8rem] px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
             to="/"
           >
-            {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

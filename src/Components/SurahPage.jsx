@@ -67,7 +67,7 @@ function SurahPage() {
   return (
     <>
       <Header />
-      <main className="max-w-[1598px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
+      <main className="max-w-[1720px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
         <div className="flex flex-col items-center gap-[2.4rem]">
           <h1 className="text-shade text-[6.4rem] border-b-amber-500 border-b-8 mt-[4.8rem] ">
             All Surahs

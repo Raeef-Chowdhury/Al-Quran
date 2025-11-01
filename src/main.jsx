@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SurahPage from "./Components/SurahPage.jsx";
 import NotFoundPage from "./Components/NotFoundPage.jsx";
 import SurahDetails from "./Components/SurahDetails.jsx";
+import DuaPage from "./Components/DuaPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/surahs",
     element: <SurahPage />,
+  },
+  {
+    path: "/duas",
+    element: <DuaPage />,
   },
 
   {

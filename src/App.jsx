@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./Components/Header";
 import Hero from "./Components/Hero";
 import SurahSection from "./Components/SurahSection";
+import DuaSection from "./Components/DuaSection";
 import { useState, useEffect } from "react";
 
 //TODO: DAILY DUA
@@ -11,6 +12,7 @@ import { useState, useEffect } from "react";
 //TODO:Sticky Nav
 //TODO: CTA HERo
 //TODO: Bookmark surah ayah
+//TODO: Add Widgets Namaz Info
 
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
@@ -35,6 +37,7 @@ function App() {
         setSearch={setQuranSearch}
         surahs={surahs}
       />
+      <DuaSection />
     </>
   );
 }
