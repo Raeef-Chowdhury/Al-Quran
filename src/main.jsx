@@ -7,6 +7,7 @@ import SurahPage from "./Components/SurahPage.jsx";
 import NotFoundPage from "./Components/NotFoundPage.jsx";
 import SurahDetails from "./Components/SurahDetails.jsx";
 import DuaPage from "./Components/DuaPage.jsx";
+import DuaDetails from "./Components/DuaDetails.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/surahs/:id",
     element: <SurahDetails />,
+  },
+  {
+    path: "/duas/:id",
+    element: <DuaDetails />,
   },
   {
     path: "*",

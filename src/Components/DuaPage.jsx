@@ -1,4 +1,10 @@
+import Header from "./Header";
 function DuaPage() {
-  return <h1>ALL DUAS</h1>;
+  return (
+    <>
+      <Header />
+      <h1>ALL DUAS</h1>
+    </>
+  );
 }
 export default DuaPage;
