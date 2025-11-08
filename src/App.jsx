@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Hero from "./Components/Hero";
 import SurahSection from "./Components/SurahSection";
 import DuaSection from "./Components/DuaSection";
+import PrayerTimes from "./Components/PrayerSection";
 import { useState, useEffect } from "react";
 
 //TODO:Recitation Page=
@@ -36,6 +37,7 @@ function App() {
         surahs={surahs}
       />
       <DuaSection />
+      <PrayerTimes />
     </>
   );
 }

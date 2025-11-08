@@ -59,7 +59,9 @@ function SurahPage() {
   }
   function setAll() {
     const filtered = allSurahs.filter((s) => s.numberOfAyahs > 1);
-
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    });
     setBgState("all");
     setSurahs(filtered);
   }
@@ -173,7 +175,7 @@ function QuranCard({
   number,
 }) {
   return (
-    <li className="max-h-[40rem]  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
+    <li className="max-h-[40rem] quran__page--card  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
       <Link to={`/surahs/${number}`}>
         <div className="flex justify-between items-center w-full mb-6">
           <div className="w-24 h-24  rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600  flex items-center justify-center shadow-lg transition-all duration-300 transform ">

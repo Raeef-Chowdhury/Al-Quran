@@ -9,7 +9,7 @@ function Header({ bgState, setBgState }) {
   const setRecitations = () => setBgState("Recitations");
   return (
     <>
-      <header className="bg-background header ">
+      <header className="bg-tertiary/10 header ">
         <ul className="flex items-center justify-around ">
           <div className="header__title">
             <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer text-[4.8rem] flex items-center gap-[1rem] font-bold bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent">

@@ -17,7 +17,7 @@ import duas from "../data/daily-duas.json";
 function DuaPage() {
   const [dua, setDua] = useState([]);
   const [allDuas, setAllDuas] = useState([]);
-  const [bg, setBg] = useState("all");
+  const [bg, setBg] = useState("All");
   useEffect(() => {
     const dua = duas;
 
@@ -140,7 +140,7 @@ function DuaCard({ dua }) {
   return (
     <>
       <Link to={`/duas/${dua.number}`}>
-        <div className="max-w-[480px] h-[240px] mx-auto group relative shadow-2xl p-[1rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
+        <div className="max-w-[480px] dua__card--page h-[240px] mx-auto group relative shadow-2xl p-[1rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
           <div className="flex flex-col gap-[1.6rem] justify-center items-center ">
             <div className="mt-[1.6rem]  gap-[0.8rem] bg-primary text-shade font-bold rounded-full px-[2.4rem] py-[0.6rem] flex items-center justify-center text-[1.8rem] shadow-md uppercase tracking-wide">
               <span>

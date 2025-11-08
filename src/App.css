@@ -34,10 +34,13 @@ html {
 .quran__page--card {
   animation: comeIn 600ms;
 }
+.dua__card--page {
+  animation: comeIn 600ms;
+}
 @keyframes comeIn {
   0% {
     opacity: 0;
-    transform: translateY(10rem);
+    transform: translateY(20rem);
   }
   100% {
     opacity: 1;
