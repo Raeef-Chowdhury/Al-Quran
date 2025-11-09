@@ -172,9 +172,17 @@ function PrayerTimes() {
             </span>
           </p>
 
-          <p>
-            {nextPrayer} Namaz in {getTimeDifference(timings[nextPrayer])}
-          </p>
+          {timings && nextPrayer && timings[nextPrayer] ? (
+            <p className="text-text text-[3.6rem] font-bold drop-shadow-lg">
+              {nextPrayer} Namaz in{" "}
+              <span className="text-amber-200">
+                {" "}
+                {getTimeDifference(timings[nextPrayer])}
+              </span>
+            </p>
+          ) : (
+            <p>Loading prayer times...</p>
+          )}
         </div>
         <ul className="prayer_times flex items-center justify-center gap-[6rem] mt-[6rem]">
           {timings ? (
@@ -183,19 +191,19 @@ function PrayerTimes() {
                 <li
                   key={prayer.name}
                   className={`${
-                    curPrayer === prayer.name
-                      ? "bg-gradient-to-br from-shade to-shade/50 scale-110 hover:scale-[1.15]  "
+                    nextPrayer === prayer.name
+                      ? "bg-gradient-to-br from-[#2bfc4e]/20 to-shade/50 scale-110 hover:scale-[1.15]  "
                       : "bg-shade/50"
                   } ${
-                    nextPrayer === prayer.name
+                    curPrayer === prayer.name
                       ? "bg-gradient-to-br from-primary to-shade/10 scale-120 hover:scale-[1.25] ml-[1.6rem]"
                       : ""
-                  } rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-[2rem] min-w-[25rem] min-h-[30rem] transform transition-all duration-300 hover:scale-105 hover:shadow-2xl`}
+                  } rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-[2rem] min-w-[25rem] min-h-[30rem] transform transition-all duration-300 hover:scale-105 hover:cursor-pointer hover:shadow-2xl`}
                 >
                   <div>
                     <h3
                       className={`${
-                        nextPrayer === prayer.name
+                        curPrayer === prayer.name
                           ? "text-teal-100"
                           : "text-white"
                       } text-[3.6rem] font-bold mb-[1rem]`}
@@ -207,7 +215,7 @@ function PrayerTimes() {
                     </p>
                     <div
                       className={`${
-                        nextPrayer === prayer.name
+                        curPrayer === prayer.name
                           ? "text-teal-700"
                           : "text-white"
                       } text-[4.8rem] font-bold text-white bg-white/20 px-[2rem] py-[1rem] rounded-xl`}

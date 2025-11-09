@@ -7,7 +7,9 @@ const SurahDetails = () => {
   const startOfSurah = useRef(null);
   const { id } = useParams();
   const [surah, setSurah] = useState(null);
+  const [curAudio, setCurAudio] = useState("");
   const [translation, setTranslation] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(0);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const scrollToEnd = () => {
@@ -55,7 +57,36 @@ const SurahDetails = () => {
   if (loading || !surah) {
     return <p className="text-text">Loading surah {id}...</p>;
   }
-  console.log(surah, translation);
+
+  const playAyah = (ayahNumberInSurah) => {
+    // If already playing, stop previous
+    if (curAudio) {
+      curAudio.pause();
+    }
+
+    const audio = new Audio(
+      `https://the-quran-project.github.io/Quran-Audio/Data/1/${surah.number}_${ayahNumberInSurah}.mp3`
+    );
+
+    audio.play().catch((err) => console.error("Error playing audio:", err));
+
+    setCurAudio(audio);
+    setIsPlaying(ayahNumberInSurah);
+
+    // When audio ends, reset
+    audio.onended = () => {
+      setIsPlaying(0);
+      setCurAudio(null);
+    };
+  };
+
+  const pauseAyah = () => {
+    if (curAudio) {
+      curAudio.pause();
+      setIsPlaying(0);
+      setCurAudio(null);
+    }
+  };
   return (
     <div className="max-w-[1440px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
       {" "}
@@ -112,11 +143,48 @@ const SurahDetails = () => {
         {surah.ayahs.map((ayah, index) => (
           <li
             key={ayah.number}
-            className="group flex flex-col shadow-2xl  text-right relative p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300"
+            className={` ${
+              isPlaying == ayah.numberInSurah
+                ? "bg-primary/40 hover:bg-primary/50"
+                : "bg-primary/10 hover:bg-primary/20"
+            } group flex flex-col shadow-2xl  text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
           >
-            <div className="absolute left-[1rem] top-[3rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+            <div className="absolute left-[1rem] top-[1rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
               {ayah.numberInSurah}
             </div>
+            {isPlaying == ayah.numberInSurah ? (
+              <button onClick={() => pauseAyah(ayah.numberInSurah)}>
+                <div className="absolute left-[1rem] top-[7rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                  <svg
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0"
+                    y="0"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M13 28H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6H8v20zM25 28h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6h-4v20z" />
+                  </svg>
+                </div>
+              </button>
+            ) : (
+              <button onClick={() => playAyah(ayah.numberInSurah)}>
+                <div className="absolute left-[1rem] top-[7rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className=" h-12"
+                  >
+                    <g data-name="high audio">
+                      <path d="M11.46 3c-1 0-1 .13-6.76 4H1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3.7l5.36 3.57A2.54 2.54 0 0 0 14 18.46V5.54A2.54 2.54 0 0 0 11.46 3zM2 9h2v6H2zm10 9.46a.55.55 0 0 1-.83.45L6 15.46V8.54l5.17-3.45a.55.55 0 0 1 .83.45zM16.83 9.17a1 1 0 0 0-1.42 1.42 2 2 0 0 1 0 2.82 1 1 0 0 0 .71 1.71c1.38 0 3.04-3.62.71-5.95z" />
+                      <path d="M19 7.05a1 1 0 0 0-1.41 1.41 5 5 0 0 1 0 7.08 1 1 0 0 0 .7 1.7c1.61 0 4.8-6.05.71-10.19z" />
+                      <path d="M21.07 4.93a1 1 0 0 0-1.41 1.41 8 8 0 0 1 0 11.32 1 1 0 0 0 1.41 1.41 10 10 0 0 0 0-14.14z" />
+                    </g>
+                  </svg>
+                </div>
+              </button>
+            )}
+
             <p className="text-[3.6rem] ml-[2rem] leading-snug text-shade font-arabic mb-[2rem]">
               {ayah.text}
             </p>
