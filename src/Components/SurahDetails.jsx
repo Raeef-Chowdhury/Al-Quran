@@ -9,7 +9,7 @@ const SurahDetails = () => {
   const [surah, setSurah] = useState(null);
   const [curAudio, setCurAudio] = useState("");
   const [translation, setTranslation] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(null);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const scrollToEnd = () => {
@@ -59,7 +59,6 @@ const SurahDetails = () => {
   }
 
   const playAyah = (ayahNumberInSurah) => {
-    // If already playing, stop previous
     if (curAudio) {
       curAudio.pause();
     }
@@ -75,16 +74,21 @@ const SurahDetails = () => {
 
     // When audio ends, reset
     audio.onended = () => {
-      setIsPlaying(0);
-      setCurAudio(null);
+      const nextAyahNumber = ayahNumberInSurah + 1;
+
+      if (nextAyahNumber <= surah.numberOfAyahs) {
+        playAyah(nextAyahNumber);
+      } else {
+        playAyah(1);
+      }
     };
   };
 
   const pauseAyah = () => {
     if (curAudio) {
       curAudio.pause();
+
       setIsPlaying(0);
-      setCurAudio(null);
     }
   };
   return (
