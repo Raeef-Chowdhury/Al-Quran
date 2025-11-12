@@ -1,23 +1,30 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SurahDetails = () => {
   const endOfSurah = useRef(null);
   const startOfSurah = useRef(null);
+  const playingAyah = useRef(null);
   const { id } = useParams();
   const [surah, setSurah] = useState(null);
   const [curAudio, setCurAudio] = useState("");
   const [translation, setTranslation] = useState(null);
   const [isPlaying, setIsPlaying] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const navigate = useNavigate();
+
   const scrollToEnd = () => {
     endOfSurah.current?.scrollIntoView({ behavior: "smooth" });
   };
   const scrollToStart = () => {
     startOfSurah.current?.scrollIntoView({ behavior: "smooth" });
   };
+  useEffect(() => {
+    playingAyah.current?.scrollIntoView({ behavior: "smooth" });
+  }, [isPlaying]);
   useEffect(() => {
     const fetchSurah = async () => {
       try {
@@ -42,6 +49,20 @@ const SurahDetails = () => {
 
     fetchSurah();
   }, [id]);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowRight") {
+        navigate(`/surahs/${surah.number + 1}`); // go to next page
+      } else if (e.key === "ArrowLeft") {
+        navigate(`/surahs/${surah.number - 1}`); // go to previous page
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [surah]);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -72,6 +93,7 @@ const SurahDetails = () => {
     setCurAudio(audio);
     setIsPlaying(ayahNumberInSurah);
 
+    setIsPaused(false);
     // When audio ends, reset
     audio.onended = () => {
       const nextAyahNumber = ayahNumberInSurah + 1;
@@ -79,7 +101,7 @@ const SurahDetails = () => {
       if (nextAyahNumber <= surah.numberOfAyahs) {
         playAyah(nextAyahNumber);
       } else {
-        playAyah(1);
+        setIsPlaying(0);
       }
     };
   };
@@ -88,9 +110,11 @@ const SurahDetails = () => {
     if (curAudio) {
       curAudio.pause();
 
-      setIsPlaying(0);
+      setIsPlaying(400);
     }
+    setIsPaused(true);
   };
+
   return (
     <div className="max-w-[1440px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
       {" "}
@@ -151,51 +175,57 @@ const SurahDetails = () => {
               isPlaying == ayah.numberInSurah
                 ? "bg-primary/40 hover:bg-primary/50"
                 : "bg-primary/10 hover:bg-primary/20"
-            } group flex flex-col shadow-2xl  text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
+            } group flex justify-between  shadow-2xl  text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
           >
-            <div className="absolute left-[1rem] top-[1rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
-              {ayah.numberInSurah}
+            <div className="flex flex-col gap-[2.4rem] items-left">
+              <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                {ayah.numberInSurah}
+              </div>
+              {isPlaying == ayah.numberInSurah ? (
+                <button onClick={() => pauseAyah(ayah.numberInSurah)}>
+                  <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                    <svg
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0"
+                      y="0"
+                      viewBox="0 0 32 32"
+                    >
+                      <path d="M13 28H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6H8v20zM25 28h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6h-4v20z" />
+                    </svg>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  ref={playingAyah}
+                  onClick={() => playAyah(ayah.numberInSurah)}
+                >
+                  <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      className=" h-12"
+                    >
+                      <g data-name="high audio">
+                        <path d="M11.46 3c-1 0-1 .13-6.76 4H1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3.7l5.36 3.57A2.54 2.54 0 0 0 14 18.46V5.54A2.54 2.54 0 0 0 11.46 3zM2 9h2v6H2zm10 9.46a.55.55 0 0 1-.83.45L6 15.46V8.54l5.17-3.45a.55.55 0 0 1 .83.45zM16.83 9.17a1 1 0 0 0-1.42 1.42 2 2 0 0 1 0 2.82 1 1 0 0 0 .71 1.71c1.38 0 3.04-3.62.71-5.95z" />
+                        <path d="M19 7.05a1 1 0 0 0-1.41 1.41 5 5 0 0 1 0 7.08 1 1 0 0 0 .7 1.7c1.61 0 4.8-6.05.71-10.19z" />
+                        <path d="M21.07 4.93a1 1 0 0 0-1.41 1.41 8 8 0 0 1 0 11.32 1 1 0 0 0 1.41 1.41 10 10 0 0 0 0-14.14z" />
+                      </g>
+                    </svg>
+                  </div>
+                </button>
+              )}
             </div>
-            {isPlaying == ayah.numberInSurah ? (
-              <button onClick={() => pauseAyah(ayah.numberInSurah)}>
-                <div className="absolute left-[1rem] top-[7rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
-                  <svg
-                    version="1.1"
-                    id="Layer_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 32 32"
-                  >
-                    <path d="M13 28H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6H8v20zM25 28h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6h-4v20z" />
-                  </svg>
-                </div>
-              </button>
-            ) : (
-              <button onClick={() => playAyah(ayah.numberInSurah)}>
-                <div className="absolute left-[1rem] top-[7rem] bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className=" h-12"
-                  >
-                    <g data-name="high audio">
-                      <path d="M11.46 3c-1 0-1 .13-6.76 4H1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3.7l5.36 3.57A2.54 2.54 0 0 0 14 18.46V5.54A2.54 2.54 0 0 0 11.46 3zM2 9h2v6H2zm10 9.46a.55.55 0 0 1-.83.45L6 15.46V8.54l5.17-3.45a.55.55 0 0 1 .83.45zM16.83 9.17a1 1 0 0 0-1.42 1.42 2 2 0 0 1 0 2.82 1 1 0 0 0 .71 1.71c1.38 0 3.04-3.62.71-5.95z" />
-                      <path d="M19 7.05a1 1 0 0 0-1.41 1.41 5 5 0 0 1 0 7.08 1 1 0 0 0 .7 1.7c1.61 0 4.8-6.05.71-10.19z" />
-                      <path d="M21.07 4.93a1 1 0 0 0-1.41 1.41 8 8 0 0 1 0 11.32 1 1 0 0 0 1.41 1.41 10 10 0 0 0 0-14.14z" />
-                    </g>
-                  </svg>
-                </div>
-              </button>
-            )}
-
-            <p className="text-[3.6rem] ml-[2rem] leading-snug text-shade font-arabic mb-[2rem]">
-              {ayah.text}
-            </p>
-            <p className="text-[2.4rem] mt-[4rem] text-text text-right  leading-relaxed font-light italic  max-w-[90%] ml-auto">
-              {translation?.ayahs[index]?.text}
-            </p>
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/10 group-hover:bg-primary/40 transition-colors"></span>
+            <div className="flex flex-col items-end justify-end">
+              <p className="text-[3.6rem] max-w-[90%] ml-[2rem] leading-snug text-shade font-arabic mb-[2rem]">
+                {ayah.text}
+              </p>
+              <p className="text-[2.4rem] mt-[4rem] text-text text-right  leading-relaxed font-light italic  max-w-[90%] ml-auto">
+                {translation?.ayahs[index]?.text}
+              </p>
+              <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/10 group-hover:bg-primary/40 transition-colors"></span>
+            </div>
           </li>
         ))}
       </ul>
@@ -299,6 +329,118 @@ const SurahDetails = () => {
           ""
         )}
       </div>
+      {isPlaying && isPlaying !== 400 ? (
+        <div className="fixed bottom-0 left-0 right-0 bg-emerald-900 border-t border-emerald-700 shadow-lg z-50">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-center gap-4">
+              {/* Back Button */}
+              <button
+                onClick={() => {
+                  if (isPlaying > 1) {
+                    playAyah(isPlaying - 1);
+                  }
+                }}
+                disabled={isPlaying <= 1}
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                  isPlaying <= 1
+                    ? "bg-emerald-800 opacity-50 cursor-not-allowed"
+                    : "bg-emerald-700 hover:bg-emerald-600"
+                }`}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+              </button>
+
+              {isPaused ? (
+                <button
+                  onClick={() => {
+                    if (curAudio) {
+                      curAudio.play();
+                      setIsPaused(false);
+                    }
+                  }}
+                  className="w-14 h-14 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                >
+                  <svg
+                    className="w-7 h-7 text-emerald-900 ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (curAudio) {
+                      curAudio.pause();
+                      setIsPaused(true);
+                    }
+                  }}
+                  className="w-14 h-14 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                >
+                  <svg
+                    className="w-7 h-7 text-emerald-900"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <rect x="6" y="4" width="4" height="16" rx="1" />
+                    <rect x="14" y="4" width="4" height="16" rx="1" />
+                  </svg>
+                </button>
+              )}
+
+              <button
+                onClick={() => {
+                  if (isPlaying < surah.numberOfAyahs) {
+                    playAyah(isPlaying + 1);
+                    setIsPaused(false);
+                  }
+                }}
+                disabled={isPlaying >= surah.numberOfAyahs}
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                  isPlaying >= surah.numberOfAyahs
+                    ? "bg-emerald-800 opacity-50 cursor-not-allowed"
+                    : "bg-emerald-700 hover:bg-emerald-600"
+                }`}
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => {
+                  if (curAudio) {
+                    curAudio.pause();
+                  }
+                  setIsPlaying(null);
+                  setIsPaused(false);
+                  setCurAudio(null);
+                }}
+                className="w-10 h-10 rounded-full bg-red-700 hover:bg-red-600 flex items-center justify-center transition-colors ml-2"
+              >
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
