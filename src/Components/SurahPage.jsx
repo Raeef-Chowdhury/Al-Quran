@@ -78,14 +78,14 @@ function SurahPage() {
             Browse and read from all 114 Surahs of the Quran
           </p>
           <input
-            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
+            className="text-slate-300 mb-[1.2rem]  text-[2rem] py-[0.8rem] mt-[2.4rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
             id="searchbar"
             type="text"
             placeholder="Search by name,number or translation here..."
             value={quranSearch}
             onChange={(e) => setQuranSearch(e.target.value)}
           />
-          <div className="flex items-center justify-between w-[80%] bg-text border-shade border-4 p-0 rounded-full overflow-hidden">
+          <div className="flex items-center mb-[4.8rem] justify-between w-[80%] bg-text border-shade border-4 p-0 rounded-full overflow-hidden">
             <button
               onClick={() => setAll(surahs)}
               className={`flex-1 text-[2.4rem] ${

@@ -21,7 +21,7 @@ function Hero() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       id="hero"
-      className="hero__section bg-background text-center min-h-[80vh] max-w-[1600px]  items-center flex flex-col gap-[1.8rem]"
+      className="hero__section bg-background text-center  max-w-[1600px]  items-center flex flex-col gap-[1.8rem]"
     >
       <h1 className="text-[9.6rem] text-primary font-bold tracking-[0.5rem] ">
         The Holy Quran

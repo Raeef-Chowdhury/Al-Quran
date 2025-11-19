@@ -18,8 +18,8 @@ function DuaSection() {
       initial={{ opacity: 0, y: "10rem" }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mt-[24rem] max-w-[1920px]   flex flex-col gap-[1.8rem] "
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="mt-[30rem] max-w-[1920px]   flex flex-col gap-[1.8rem] "
     >
       <h1 className="text-[6.4rem] text-primary font-bold underline uppercase">
         Duas

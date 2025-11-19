@@ -5,12 +5,11 @@ function SurahSection({ surahs }) {
   return (
     <>
       <motion.section
-        initial={{ opacity: 0, y: "10rem" }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 1, ease: "easeOut" }}
         id="surahs"
-        className="mt-[12rem] mx-auto  max-w-[1920px]   flex flex-col gap-[1.8rem]"
+        className="mt-[24rem] mx-auto  max-w-[1920px]   flex flex-col gap-[1.8rem]"
       >
         <div className="heading__box flex flex-col gap-[1rem]">
           <h2 className="text-[6.4rem] text-primary font-bold underline">

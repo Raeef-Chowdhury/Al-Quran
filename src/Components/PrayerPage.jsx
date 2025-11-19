@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
+import { motion } from "motion/react";
 function PrayerPage() {
   const date = new Date();
   const day = date.getDate();
@@ -58,9 +59,14 @@ function PrayerPage() {
   );
 
   return (
-    <div className="">
+    <section>
       <Header />
-      <div className=" mt-[4.8rem] mx-auto p-6 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className=" mt-[4.8rem] mx-auto p-6 space-y-6"
+      >
         {/* Date Display */}
         <div className=" text-center max-w-5xl mx-auto">
           <p className="text-text  text-[3.2rem] font-semibold mb-2">
@@ -180,8 +186,8 @@ function PrayerPage() {
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 }
 
