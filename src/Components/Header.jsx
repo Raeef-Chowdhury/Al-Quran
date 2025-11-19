@@ -1,19 +1,25 @@
 /* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
-function Header({ bgState, setBgState }) {
+function Header({ setBgState }) {
   const location = useLocation();
   const currentPath = location.pathname;
   const setHome = () => setBgState("Home");
   const setSurahs = () => setBgState("Surahs");
   const setDuas = () => setBgState("Duas");
-  const setRecitations = () => setBgState("Recitations");
+  const setPrayers = () => setBgState("Prayers");
   return (
     <>
       <header className="bg-tertiary/10 header ">
         <ul className="flex items-center justify-around ">
           <div className="header__title">
-            <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer text-[4.8rem] flex items-center gap-[1rem] font-bold bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent">
-              Al-Quran
+            <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer ">
+              <div className="h-[9.6rem] scale-150 flex items-center">
+                <img
+                  src="/src/assets/remove-photos-background-removed.png"
+                  className="h-full w-auto scale-125 bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent"
+                  alt="logo"
+                />
+              </div>
             </li>
           </div>
           <div className="header__access flex gap-24 items-center justify-between">
@@ -95,30 +101,62 @@ function Header({ bgState, setBgState }) {
                 Duas
               </li>
             </Link>
-            <li
-              onClick={setRecitations}
-              className={`text-[2.4rem] ${
-                bgState === "Recitations"
-                  ? "bg-shade text-[#0b2026]"
-                  : "text-tertiary"
-              } flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-[2.8rem]"
+            <Link to="/prayers" className="flex items-center gap-[1rem]">
+              <li
+                onClick={setPrayers}
+                className={`text-[2.4rem] ${
+                  currentPath === "/prayers"
+                    ? "bg-shade text-[#0b2026]"
+                    : "text-tertiary"
+                } flex items-center gap-[1rem] transition-all transition-300ms hover:bg-shade hover:text-[#0b2026] header__nav cursor-pointer rounded-xl`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-                />
-              </svg>
-              Recitations
-            </li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-[2.8rem]"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.8 2.86C8.92 2.36 9.37 2 9.89 2C10.5 2 11 2.5 11 3.11V10M11 10V15.22C11 15.72 10.81 16.2 10.47 16.57L7.68 19.62L4.28 16.22L5.5 15L8.3 2.86"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.5 10V13C8.5 13.28 8.72 13.5 9 13.5C9.28 13.5 9.5 13.28 9.5 13V10C9.5 9.45 9.95 9 10.5 9C10.69 9 10.85 9.07 11 9.16"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2 19L6 22L7.17 20.73L3.72 17.28L2 19"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.2 2.86C15.08 2.36 14.63 2 14.11 2C13.5 2 13 2.5 13 3.11V10M13 10V15.22C13 15.72 13.19 16.2 13.53 16.57L16.32 19.62L19.72 16.22L18.5 15L15.7 2.86"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.5 10V13C15.5 13.28 15.28 13.5 15 13.5C14.72 13.5 14.5 13.28 14.5 13V10C14.5 9.45 14.05 9 13.5 9C13.31 9 13.15 9.07 13 9.16"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M22 19L18 22L16.83 20.73L20.28 17.28L22 19"
+                  />
+                </svg>
+                Prayers
+              </li>
+            </Link>
           </div>
 
           <li className="text-[2.4rem] theme__icon hover:bg-shade hover:text-[#0b2026] transition-all trasnition-300ms cursor-pointer rounded-full ">

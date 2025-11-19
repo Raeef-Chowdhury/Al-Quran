@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-
+import { motion } from "motion/react";
 /* eslint-disable react/prop-types */
 function SurahSection({ surahs }) {
   return (
     <>
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: "10rem" }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         id="surahs"
-        className="surah__section  min-h-[80vh] max-w-[1920px]   flex flex-col gap-[1.8rem]"
+        className="mt-[12rem] mx-auto  max-w-[1920px]   flex flex-col gap-[1.8rem]"
       >
         <div className="heading__box flex flex-col gap-[1rem]">
           <h2 className="text-[6.4rem] text-primary font-bold underline">
@@ -51,7 +55,7 @@ function SurahSection({ surahs }) {
             </svg>
           </button>
         </Link>
-      </section>
+      </motion.section>
     </>
   );
 }

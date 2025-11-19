@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import duas from "../data/daily-duas.json";
 import { Link } from "react-router-dom";
 function DuaSection() {
@@ -13,7 +14,13 @@ function DuaSection() {
   }, []);
 
   return (
-    <section className="mt-[18rem] max-w-[1920px]   flex flex-col gap-[1.8rem] ">
+    <motion.section
+      initial={{ opacity: 0, y: "10rem" }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="mt-[24rem] max-w-[1920px]   flex flex-col gap-[1.8rem] "
+    >
       <h1 className="text-[6.4rem] text-primary font-bold underline uppercase">
         Duas
       </h1>
@@ -44,7 +51,7 @@ function DuaSection() {
           Show Every Dua
         </button>
       </Link>
-    </section>
+    </motion.section>
   );
 }
 function DuaCard({ title, arabic, latin, translation, number }) {

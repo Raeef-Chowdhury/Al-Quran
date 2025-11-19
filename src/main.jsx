@@ -7,6 +7,7 @@ import SurahPage from "./Components/SurahPage.jsx";
 import NotFoundPage from "./Components/NotFoundPage.jsx";
 import SurahDetails from "./Components/SurahDetails.jsx";
 import DuaPage from "./Components/DuaPage.jsx";
+import PrayerPage from "./Components/PrayerPage.jsx";
 import DuaDetails from "./Components/DuaDetails.jsx";
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFoundPage />,
+  },
+  {
+    path: "/prayers",
+    element: <PrayerPage />,
   },
 ]);
 createRoot(document.getElementById("root")).render(

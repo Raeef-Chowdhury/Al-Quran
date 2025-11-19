@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { motion } from "motion/react";
 import ayahQuotes from "../data/quran.json";
 import { useEffect, useState } from "react";
 
@@ -14,7 +15,11 @@ function Hero() {
   }, []);
   if (!randomAyah) return null;
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       id="hero"
       className="hero__section bg-background text-center min-h-[80vh] max-w-[1600px]  items-center flex flex-col gap-[1.8rem]"
     >
@@ -53,7 +58,7 @@ function Hero() {
           <AyahText ayahText={randomAyah.ayah} />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 function AyahText({ ayahText }) {

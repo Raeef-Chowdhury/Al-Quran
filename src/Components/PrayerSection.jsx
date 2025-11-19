@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 const prayers = [
   { name: "Fajr", arabicName: "الفجر" },
   { name: "Dhuhr", arabicName: "الظهر" },
@@ -63,15 +65,15 @@ function PrayerTimes() {
 
     return `${hours}h ${minutes}m`;
   }
+  const date = new Date();
+
+  const day = date.getDate();
+
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  const formattedDate = `${day}-${month}-${year}`;
   useEffect(() => {
     const fetchTimings = async () => {
-      const date = new Date();
-
-      const day = date.getDate();
-
-      const month = new Date().getMonth() + 1;
-      const year = new Date().getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
       const res = await fetch(
         `https://api.aladhan.com/v1/timingsByCity/${formattedDate}?city=${location.city}&country=${location.country}&method=4&adjustment=1`
       );
@@ -81,6 +83,7 @@ function PrayerTimes() {
     };
     fetchTimings();
   }, [location]);
+
   useEffect(() => {
     if (!timings) return;
 
@@ -131,9 +134,13 @@ function PrayerTimes() {
 
   return (
     <>
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: "10rem" }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         id="surahs"
-        className="mt-[16rem] max-w-[1920px]   flex flex-col gap-[1.8rem]"
+        className="mt-[24rem] max-w-[1920px]   flex flex-col gap-[1.8rem]"
       >
         <div className="heading__box flex flex-col ">
           <h2 className="text-[6.4rem] text-primary font-bold underline">
@@ -196,7 +203,7 @@ function PrayerTimes() {
                       : "bg-shade/50"
                   } ${
                     curPrayer === prayer.name
-                      ? "bg-gradient-to-br from-primary to-shade/10 scale-120 hover:scale-[1.25] ml-[1.6rem]"
+                      ? "bg-gradient-to-br from-primary to-shade/10 scale-120 hover:scale-[1.25] mr-[1.6rem]"
                       : ""
                   } rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-[2rem] min-w-[25rem] min-h-[30rem] transform transition-all duration-300 hover:scale-105 hover:cursor-pointer hover:shadow-2xl`}
                 >
@@ -243,7 +250,16 @@ function PrayerTimes() {
             <li>Loading prayer times...</li>
           )}
         </ul>
-      </section>
+
+        <Link
+          to="/prayers"
+          className="text-[2.4rem] text-[tertiary] hover:cursor-pointer bg-shade/20 mx-auto py-[0.6rem] px-[1.8rem] rounded-xl hover:bg-tertiary transition-all mt-[4.8rem]            
+        
+        "
+        >
+          <button>More Prayer Info {">"}</button>
+        </Link>
+      </motion.section>
     </>
   );
 }
