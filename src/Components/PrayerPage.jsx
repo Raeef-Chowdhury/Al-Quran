@@ -8,6 +8,12 @@ function PrayerPage() {
   const year = date.getFullYear();
   const formattedDate = `${day}-${month}-${year}`;
   const [dates, setDates] = useState([]);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const todayKey = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+  const [history, setHistory] = useState({});
   const [prayers, setPrayers] = useState({
     fajr: false,
     dhuhr: false,
@@ -15,20 +21,67 @@ function PrayerPage() {
     maghrib: false,
     isha: false,
   });
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("prayerHistory");
+    if (savedHistory) {
+      const parsedHistory = JSON.parse(savedHistory);
+      setHistory(parsedHistory);
 
+      // Load today's prayers
+      if (parsedHistory[todayKey]) {
+        setPrayers(parsedHistory[todayKey]);
+      }
+    }
+  }, [todayKey]);
+
+  // Calculate streak whenever history changes
+  useEffect(() => {
+    calculateStreak();
+  }, [history]);
+
+  const calculateStreak = () => {
+    const sortedDates = Object.keys(history).sort(
+      (a, b) => new Date(b) - new Date(a)
+    );
+
+    if (sortedDates.length === 0) {
+      setCurrentStreak(0);
+      return;
+    }
+
+    let streak = 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < sortedDates.length; i++) {
+      const checkDate = new Date(sortedDates[i]);
+      const expectedDate = new Date(today);
+      expectedDate.setDate(today.getDate() - i);
+      expectedDate.setHours(0, 0, 0, 0);
+
+      if (checkDate.getTime() === expectedDate.getTime()) {
+        const dayPrayers = history[sortedDates[i]];
+        const completed = Object.values(dayPrayers).filter(Boolean).length;
+
+        // Count as streak day if at least 5 prayers completed
+        if (completed === 5) {
+          streak++;
+        } else {
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+
+    setCurrentStreak(streak);
+  };
   const prayerList = [
     { name: "Fajr", key: "fajr", time: "Dawn" },
     { name: "Dhuhr", key: "dhuhr", time: "Midday" },
     { name: "Asr", key: "asr", time: "Afternoon" },
     { name: "Maghrib", key: "maghrib", time: "Sunset" },
     { name: "Isha", key: "isha", time: "Night" },
-  ];
-
-  const upcomingDates = [
-    { name: "Ramadan", date: "1st Ramadan 1446 (Feb 28, 2025)" },
-    { name: "Eid al-Fitr", date: "1st Shawwal 1446 (Mar 30, 2025)" },
-    { name: "Eid al-Adha", date: "10th Dhul Hijjah 1446 (Jun 6, 2025)" },
-    { name: "Islamic New Year", date: "1st Muharram 1447 (Jul 6, 2025)" },
   ];
 
   const getArabicCalendar = async () => {
@@ -38,15 +91,35 @@ function PrayerPage() {
       );
       const data = await res.json();
       setDates(data.data);
+      console.log(data.data);
     } catch (error) {
       console.error("Error fetching calendar:", error);
     }
   };
-
+  const getArabicHolidays = async () => {
+    try {
+      const res = await fetch(
+        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${year}`
+      );
+      const data = await res.json();
+      const filteredEvents = data.data.filter(
+        (d) =>
+          d.hijri.date === `01-09-${year}` ||
+          d.hijri.date === `01-10-${year}` ||
+          d.hijri.date === `10-12-${year}` ||
+          d.hijri.date === `01-01-${year}`
+      );
+      setUpcomingEvents(filteredEvents);
+    } catch (error) {
+      console.error("Error fetching calendar:", error);
+    }
+  };
+  useEffect(() => {
+    getArabicHolidays();
+  });
   useEffect(() => {
     getArabicCalendar();
   }, [month]);
-
   const togglePrayer = (key) => {
     setPrayers((prev) => ({ ...prev, [key]: !prev[key] }));
   };
@@ -98,7 +171,7 @@ function PrayerPage() {
               <p className="text-xl opacity-60 ml-[5px] mb-[1.2rem]">(days) </p>
             </div>
             <p className="text-[8rem] w-40 h-40 flex items-center justify-center p-[4rem] max-w-[fit-content] mx-auto  font-extrabold text-primary leading-none bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20  rounded-full">
-              <span className="mb-[1rem]">0</span>
+              <span className="mb-[1rem]">{currentStreak}</span>
             </p>
           </div>
 
@@ -121,7 +194,6 @@ function PrayerPage() {
           </div>
         </div>
 
-        {/* Prayer Checklist */}
         <div className="rounded-lg  p-6">
           <h2 className="text-[2.4rem] font-bold text-text mb-[3.2rem] mt-[6rem]">
             Daily Prayers
@@ -130,7 +202,9 @@ function PrayerPage() {
             {prayerList.map((prayer) => (
               <label
                 key={prayer.key}
-                className="flex bg-primary/20 group  items-center justify-between p-4 rounded-lg hover:bg-shade cursor-pointer transition-colors border border-transparent hover:border-primary"
+                className={`flex ${
+                  prayers[prayer.key] ? "bg-primary/20" : "bg-primary/40"
+                } group  items-center justify-between p-4 rounded-lg hover:bg-shade cursor-pointer transition-colors border border-transparent hover:border-primary`}
               >
                 <div className="flex items-center ">
                   <input
@@ -142,8 +216,10 @@ function PrayerPage() {
                   <div className="ml-3">
                     <span
                       className={`text-[3rem] ml-[1.8rem] group-hover:text-secondary/50  font-semibold ${
-                        prayers[prayer.key] ? "line-through opacity-50" : ""
-                      } text-text`}
+                        prayers[prayer.key]
+                          ? "line-through opacity-50 text-text"
+                          : " "
+                      } `}
                     >
                       {prayer.name}
                     </span>
@@ -155,13 +231,6 @@ function PrayerPage() {
               </label>
             ))}
           </div>
-          {completedCount === 5 && (
-            <div className="mt-4 p-3 mx-auto text-4xl max-w-[fit-content]  mt-[4.8rem] bg-primary bg-opacity-10 border border-primary rounded-lg text-center">
-              <p className="text-shade font-semibold">
-                🎉 All prayers completed today! Alhamdulillah!
-              </p>
-            </div>
-          )}
         </div>
 
         <div className=" rounded-lg shadow-md p-6">
@@ -169,17 +238,17 @@ function PrayerPage() {
             Upcoming Islamic Dates
           </h2>
           <div className="flex  flex-col gap-[1.2rem]">
-            {upcomingDates.map((event, idx) => (
+            {upcomingEvents.map((event, idx) => (
               <div
                 key={idx}
                 className="mx-auto min-w-[440px] flex justify-center items-center text-center mx-auto max-w-7xl items-center p-4 bg-shade rounded-lg hover:bg-tertiary hover:bg-opacity-20 transition-colors"
               >
                 <div>
                   <span className="font-semibold text-[3.6rem] text-text block">
-                    {event.name}
+                    {event.hijri.holidays[0]}
                   </span>
                   <span className="text-sm text-text opacity-70">
-                    {event.date}
+                    {event.year}
                   </span>
                 </div>
               </div>
