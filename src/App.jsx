@@ -7,11 +7,7 @@ import PrayerTimes from "./Components/PrayerSection";
 import { useState, useEffect } from "react";
 
 //TODO:Sticky Nav
-//TODO: CTA HERo
 //TODO: Bookmark surah & dua
-//TODO: Recitation Dua & Surah
-//TODO: AUdio Player (next ayay,prev ayah, only hide audio player after first playing after clicking cross button, also pause button )
-
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
   const [surahs, setSurahs] = useState([]);

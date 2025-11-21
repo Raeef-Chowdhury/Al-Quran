@@ -6,6 +6,7 @@ function PrayerPage() {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const [hijriYear, setHijriYear] = useState(null);
+  const [loading, setLoading] = useState(true);
   const year = date.getFullYear();
   const formattedDate = `${day}-${month}-${year}`;
   const [dates, setDates] = useState([]);
@@ -38,7 +39,7 @@ function PrayerPage() {
   // Calculate streak whenever history changes
   useEffect(() => {
     calculateStreak();
-  }, [history]);
+  }, [currentStreak, history]);
 
   const calculateStreak = () => {
     const sortedDates = Object.keys(history).sort(
@@ -85,56 +86,52 @@ function PrayerPage() {
     { name: "Isha", key: "isha", time: "Night" },
   ];
 
-  const getArabicCalendar = async () => {
+  const fetchIslamicData = async () => {
     try {
-      const res = await fetch(
-        `https://api.aladhan.com/v1/gToHCalendar/${month}/${year}`
+      setLoading(true);
+
+      // Fetch current Islamic year and calendar in parallel
+      const [yearRes, calendarRes] = await Promise.all([
+        fetch(`https://api.aladhan.com/v1/currentIslamicYear`),
+        fetch(`https://api.aladhan.com/v1/gToHCalendar/${month}/${year}`),
+      ]);
+
+      const [yearData, calendarData] = await Promise.all([
+        yearRes.json(),
+        calendarRes.json(),
+      ]);
+
+      const fetchedYear = yearData.data;
+      setHijriYear(fetchedYear);
+      setDates(calendarData.data);
+      setLoading(false);
+
+      // Now fetch holidays with the year we just got
+      const holidaysRes = await fetch(
+        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${fetchedYear}`
       );
-      const data = await res.json();
-      setDates(data.data);
-      console.log(data.data);
+      const holidaysData = await holidaysRes.json();
+
+      const targetDates = [
+        `01-09-${fetchedYear}`,
+        `01-10-${fetchedYear}`,
+        `10-12-${fetchedYear}`,
+        `01-01-${fetchedYear}`,
+      ];
+
+      const filteredEvents = targetDates
+        .map((date) => holidaysData.data.find((d) => d.hijri.date === date))
+        .filter((event) => event !== undefined);
+
+      setUpcomingEvents(filteredEvents);
     } catch (error) {
-      console.error("Error fetching calendar:", error);
-    }
-  };
-  const getHijriYear = async () => {
-    try {
-      const res = await fetch(`https://api.aladhan.com/v1/currentIslamicYear`);
-      const data = await res.json();
-      setHijriYear(data.data);
-    } catch (error) {
-      console.error("Error fetching calendar:", error);
+      console.error("Error fetching Islamic data:", error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getHijriYear();
-  }, []);
-  const getArabicHolidays = async () => {
-    try {
-      const res = await fetch(
-        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${hijriYear}`
-      );
-      const data = await res.json();
-      const targetDates = [
-        `01-09-${hijriYear}`,
-        `01-10-${hijriYear}`,
-        `10-12-${hijriYear}`,
-        `01-01-${hijriYear}`,
-      ];
-      const filteredEvents = targetDates
-        .map((date) => data.data.find((d) => d.hijri.date === date))
-        .filter((event) => event !== undefined);
-      setUpcomingEvents(filteredEvents);
-    } catch (error) {
-      console.error("Error fetching calendar:", error);
-    }
-  };
-  useEffect(() => {
-    getArabicHolidays();
-  }, [hijriYear]);
-  useEffect(() => {
-    getArabicCalendar();
+    fetchIslamicData();
   }, [month]);
   const getDaysUntil = (eventDate) => {
     const [day, month, year] = eventDate.split("-");
@@ -267,39 +264,58 @@ function PrayerPage() {
           <h2 className="text-[4rem] font-bold text-text  mb-4 mt-[7.2rem]">
             Upcoming Islamic Events
           </h2>
-          <div className="flex  flex-col gap-[2.4rem]">
-            {upcomingEvents.map((event, idx) => (
-              <div
-                key={idx}
-                className="group mx-auto min-w-[440px]  items-center text-center max-w-7xl p-6 bg-gradient-to-br from-primary to-primary/50 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
-              >
-                <div className="flex flex-col gap-[2.4rem]">
-                  <span className="font-bold text-[3.6rem] text-background text-center group-hover:text-tertiary transition-colors duration-300 block">
-                    {event.hijri.date === `01-01-${hijriYear}`
-                      ? "Islamic New Year"
-                      : event.hijri.date === `01-09-${hijriYear}`
-                      ? "Ramadan"
-                      : event.hijri.holidays[0]}
-                  </span>
-                  <div className="flex items-center  justify-around">
-                    <span className="text-[2rem] text-left text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
-                      {event.gregorian.month.en} {event.gregorian.day},{" "}
-                      {event.gregorian.year}
-                    </span>
-                    <span className="text-[1.8rem] text-transparent bg-clip-text bg-gradient-to-br from-amber-500/70 to-amber-300/100 text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
-                      {(() => {
-                        const daysUntil = getDaysUntil(event.gregorian.date);
-                        return daysUntil > 0
-                          ? `In ${daysUntil} days`
-                          : daysUntil === 0
-                          ? "Today"
-                          : "Passed";
-                      })()}
-                    </span>
+          <div className="grid grid-cols-2 place-items-end place-content-end justify-items-end items-end mt-[6rem] gap-[6rem]">
+            {loading ? (
+              <div className="text-[4.8rem] text-text">Loading events...</div>
+            ) : (
+              <>
+                {upcomingEvents.map((event, idx) => (
+                  <div
+                    key={idx}
+                    className={`group ${
+                      getDaysUntil(event.gregorian.date) < 0
+                        ? "bg-primary/30 hover:cursor-pointer"
+                        : "bg-gradient-to-br from-primary to-primary/50 hover:border-teal-500  hover:cursor-pointer hover:scale-110"
+                    }  ${
+                      [2, 0].includes(idx)
+                        ? "transform translate-x-[22.5rem]"
+                        : "transform translate-x-[-22.5rem]"
+                    }
+ mx-auto w-full max-w-[440px] items-center  text-center max-w-7xl p-6  rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300`}
+                  >
+                    {console.log(idx)}
+                    <div className="flex flex-col gap-[2.4rem]">
+                      <span className="font-bold text-[3.6rem] text-background text-center transition-colors duration-300 block">
+                        {event.hijri.date === `01-01-${hijriYear}`
+                          ? "Islamic New Year"
+                          : event.hijri.date === `01-09-${hijriYear}`
+                          ? "Ramadan"
+                          : event.hijri.holidays[0]}
+                      </span>
+                      <div className="flex items-center justify-around">
+                        <span className="text-[2rem] text-left text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
+                          {event.gregorian.month.en} {event.gregorian.day},{" "}
+                          {event.gregorian.year}
+                        </span>
+                        <span className=" text-[1.8rem] text-transparent bg-clip-text bg-gradient-to-br from-amber-500/70 to-amber-300/100 text-text/70 transition-colors duration-300 block">
+                          {(() => {
+                            const daysUntil = getDaysUntil(
+                              event.gregorian.date
+                            );
+
+                            return daysUntil > 0
+                              ? `In ${daysUntil} days`
+                              : daysUntil === 0
+                              ? "Today"
+                              : "Passed";
+                          })()}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </div>
       </motion.div>

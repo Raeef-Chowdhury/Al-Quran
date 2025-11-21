@@ -167,7 +167,7 @@ function PrayerTimes() {
             {location.city}, {location.country}
           </p>
           <p className="text-[4.8rem] mt-[2.4rem] text-blue-100">
-            {new Date().getHours() < 11
+            {new Date().getHours() < 10
               ? `0${new Date().getHours()}`
               : new Date().getHours() % 12}
             :

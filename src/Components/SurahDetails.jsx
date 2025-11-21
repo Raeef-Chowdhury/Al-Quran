@@ -76,7 +76,7 @@ const SurahDetails = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   if (loading || !surah) {
-    return <p className="text-text">Loading surah {id}...</p>;
+    return <p className="text-text">Loading surah </p>;
   }
 
   const playAyah = (ayahNumberInSurah) => {
