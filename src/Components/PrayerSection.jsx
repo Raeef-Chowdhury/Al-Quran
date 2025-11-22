@@ -34,8 +34,6 @@ function PrayerTimes() {
             data.address.village ||
             data.address.county;
           const country = data.address.country;
-          console.log(data.address.suburb);
-          console.log(data);
 
           setLocation({ city, country });
         },
