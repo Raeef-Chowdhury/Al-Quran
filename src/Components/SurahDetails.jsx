@@ -14,6 +14,8 @@ const SurahDetails = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMemorized, setIsMemorized] = useState([]);
+  const [isInitialized, setIsInitialized] = useState(false);
   const navigate = useNavigate();
 
   const scrollToEnd = () => {
@@ -25,21 +27,28 @@ const SurahDetails = () => {
   useEffect(() => {
     playingAyah.current?.scrollIntoView({ behavior: "smooth" });
   }, [isPlaying]);
+
   useEffect(() => {
     const fetchSurah = async () => {
+      setIsInitialized(false);
       try {
         const res = await fetch(
           `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.asad`
         );
         const data = await res.json();
-        console.log(data.data);
 
         const arabic = data.data[0];
         const english = data.data[1];
         setSurah(arabic);
         setTranslation(english);
-
-        console.log("Fetched surah:", data.data);
+        const storageKey = `memorized-surah-${id}`;
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          setIsMemorized(JSON.parse(stored));
+        } else {
+          setIsMemorized([]);
+        }
+        setIsInitialized(true);
       } catch (err) {
         console.error("Error fetching surah:", err);
       } finally {
@@ -49,6 +58,13 @@ const SurahDetails = () => {
 
     fetchSurah();
   }, [id]);
+  useEffect(() => {
+    if (isInitialized) {
+      const storageKey = `memorized-surah-${id}`;
+      localStorage.setItem(storageKey, JSON.stringify(isMemorized));
+    }
+  }, [isMemorized, id, isInitialized]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight") {
@@ -78,6 +94,13 @@ const SurahDetails = () => {
   if (loading || !surah) {
     return <p className="text-text">Loading surah </p>;
   }
+  const handleMemorized = (ayahNumberInSurah) => {
+    setIsMemorized((prev) =>
+      prev.includes(ayahNumberInSurah)
+        ? prev.filter((n) => n !== ayahNumberInSurah)
+        : [...prev, ayahNumberInSurah]
+    );
+  };
 
   const playAyah = (ayahNumberInSurah) => {
     if (curAudio) {
@@ -171,19 +194,32 @@ const SurahDetails = () => {
         {surah.ayahs.map((ayah, index) => (
           <li
             key={ayah.number}
-            className={` ${
-              isPlaying == ayah.numberInSurah
+            className={`  ${
+              isMemorized.includes(ayah.numberInSurah) &&
+              isPlaying === ayah.numberInSurah
+                ? "bg-shade "
+                : isMemorized.includes(ayah.numberInSurah)
+                ? "bg-primary"
+                : isPlaying == ayah.numberInSurah
                 ? "bg-primary/40 hover:bg-primary/50"
                 : "bg-primary/10 hover:bg-primary/20"
             } group flex justify-between  shadow-2xl  text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
           >
             <div className="flex flex-col gap-[2.4rem] items-left">
-              <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+              <div
+                className={` ${
+                  isMemorized.includes(ayah.numberInSurah)
+                    ? "bg-background text-text"
+                    : "bg-primary text-background"
+                }    font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md`}
+              >
                 {ayah.numberInSurah}
               </div>
               {isPlaying == ayah.numberInSurah ? (
                 <button onClick={() => pauseAyah(ayah.numberInSurah)}>
-                  <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                  <div
+                    className={` bg-primary  font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md`}
+                  >
                     <svg
                       version="1.1"
                       id="Layer_1"
@@ -201,7 +237,13 @@ const SurahDetails = () => {
                   ref={playingAyah}
                   onClick={() => playAyah(ayah.numberInSurah)}
                 >
-                  <div className="  bg-primary text-background font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md">
+                  <div
+                    className={`  ${
+                      isMemorized.includes(ayah.numberInSurah)
+                        ? "bg-background fill-text"
+                        : "bg-primary fill-background"
+                    }  font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md`}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -216,12 +258,50 @@ const SurahDetails = () => {
                   </div>
                 </button>
               )}
+              <button
+                onClick={() => handleMemorized(ayah.numberInSurah)}
+                className={` ${
+                  isMemorized.includes(ayah.numberInSurah)
+                    ? "bg-background "
+                    : "bg-shade "
+                }    font-bold rounded-full h-[4rem] w-[4rem] flex justify-center items-center text-[1.6rem] shadow-md`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="12"
+                  height="12"
+                  className={`h-12 w-12 ${
+                    isMemorized.includes(ayah.numberInSurah)
+                      ? " text-text fill-text"
+                      : " rounded-full text-text"
+                  } `}
+                >
+                  <path d="M9.993 19.421 3.286 12.58l1.428-1.401 5.293 5.4 9.286-9.286 1.414 1.414L9.993 19.421z" />
+                </svg>
+              </button>
             </div>
             <div className="flex flex-col items-end justify-end">
-              <p className="text-[3.6rem] max-w-[90%] ml-[2rem] leading-snug text-shade font-arabic mb-[2rem]">
+              <p
+                className={` ${
+                  isMemorized.includes(ayah.numberInSurah) &&
+                  isPlaying === ayah.numberInSurah
+                    ? "text-background"
+                    : isMemorized.includes(ayah.numberInSurah)
+                    ? "text-secondary"
+                    : ""
+                } text-[3.6rem] max-w-[90%] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
+              >
                 {ayah.text}
               </p>
-              <p className="text-[2.4rem] mt-[4rem] text-text text-right  leading-relaxed font-light italic  max-w-[90%] ml-auto">
+              <p
+                className={`text-[2.4rem] mt-[4rem]  ${
+                  isMemorized.includes(ayah.numberInSurah) &&
+                  isPlaying === ayah.numberInSurah
+                    ? "text-primary"
+                    : "text-text"
+                } text-right  leading-relaxed font-light italic  max-w-[90%] ml-auto`}
+              >
                 {translation?.ayahs[index]?.text}
               </p>
               <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/10 group-hover:bg-primary/40 transition-colors"></span>

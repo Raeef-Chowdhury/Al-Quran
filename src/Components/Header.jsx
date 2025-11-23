@@ -73,7 +73,7 @@ function HeaderContent({ currentPath }) {
       root.classList.remove("dark");
       root.style.setProperty("--color-background", "#b0f7dd");
       root.style.setProperty("--color-primary", "#17a22b");
-      root.style.setProperty("--color-secondary", "#3498b8");
+      // root.style.setProperty("--color-secondary", "#3498b8");
       root.style.setProperty("--color-tertiary", "#106b91");
       root.style.setProperty("--color-shade", "#4a8a51");
       root.style.setProperty("--color-text", "#102107");
