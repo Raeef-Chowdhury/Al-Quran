@@ -66,7 +66,7 @@ function DuaPage() {
             Reflect on the most important duas of the Quran
           </p>
           <input
-            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem]  outline-none w-[80rem]  mx-auto     px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
+            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem]  outline-none w-[80rem]  mx-auto     px-[2rem] bg-slate border-3  border-shade  rounded-xl "
             id="text"
             placeholder="Search by name or translation here..."
             value={duaSearch}
@@ -142,7 +142,7 @@ function DuaCard({ dua }) {
       <Link to={`/duas/${dua.number}`}>
         <div className="max-w-[480px] dua__card--page h-[240px] mx-auto group relative shadow-2xl p-[1rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
           <div className="flex flex-col gap-[1.6rem] justify-center items-center ">
-            <div className="mt-[1.6rem]  gap-[0.8rem] bg-primary text-shade font-bold rounded-full px-[2.4rem] py-[0.6rem] flex items-center justify-center text-[1.8rem] shadow-md uppercase tracking-wide">
+            <div className="mt-[1.6rem]  gap-[0.8rem] bg-primary text-background font-bold rounded-full px-[2.4rem] py-[0.6rem] flex items-center justify-center text-[1.8rem] shadow-md uppercase tracking-wide">
               <span>
                 {dua.category === "Home"
                   ? "🏠"

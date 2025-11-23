@@ -78,7 +78,7 @@ function SurahPage() {
             Browse and read from all 114 Surahs of the Quran
           </p>
           <input
-            className="text-slate-300 mb-[1.2rem]  text-[2rem] py-[0.8rem] mt-[2.4rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate-700 border-3  border-shade  rounded-xl "
+            className="text-slate-300 mb-[1.2rem]  text-[2rem] py-[0.8rem] mt-[2.4rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate border-3  border-shade  rounded-xl "
             id="searchbar"
             type="text"
             placeholder="Search by name,number or translation here..."
@@ -184,7 +184,7 @@ function QuranCard({
             </span>{" "}
           </div>
           <h3
-            className={`text-secondary ${
+            className={`text-background ${
               englishName.length > 12 ? "text-[1.8rem]" : "text-[2.4rem]"
             } font-bold tracking-wide`}
           >
@@ -195,7 +195,7 @@ function QuranCard({
         <div className="space-y-3 mb-5 flex justify-between items-start ">
           <div className="flex justify-between items-center gap-4">
             <p
-              className="text-secondary  text-[2.4rem] font-semibold"
+              className="text-background  text-[2.4rem] font-semibold"
               style={{ fontFamily: "serif" }}
             >
               {arabicName}

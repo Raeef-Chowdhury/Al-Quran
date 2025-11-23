@@ -32,5 +32,9 @@ html {
   --color-shade: #a1d0a8;
   --color-text: #e7f8de;
 
+  --color-light-blue: oklch(90.1% 0.058 230.902);
+  --color-amber: oklch(92.4% 0.12 95.746);
   --color-background: #102107;
+  --color-slate: oklch(37.2% 0.044 257.287);
+  --color-header: oklch(26.6% 0.065 152.934);
 }

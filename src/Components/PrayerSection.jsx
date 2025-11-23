@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import Button from "./Button";
 const prayers = [
   { name: "Fajr", arabicName: "الفجر" },
   { name: "Dhuhr", arabicName: "الظهر" },
@@ -137,7 +137,6 @@ function PrayerTimes() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        id="surahs"
         className="mt-[24rem] max-w-[1920px]   flex flex-col gap-[1.8rem]"
       >
         <div className="heading__box flex flex-col ">
@@ -164,7 +163,7 @@ function PrayerTimes() {
             </span>
             {location.city}, {location.country}
           </p>
-          <p className="text-[4.8rem] mt-[2.4rem] text-blue-100">
+          <p className="text-[4.8rem] mt-[2.4rem] text-light-blue">
             {new Date().getHours() < 10
               ? `0${new Date().getHours()}`
               : new Date().getHours() % 12}
@@ -180,7 +179,7 @@ function PrayerTimes() {
           {timings && nextPrayer && timings[nextPrayer] ? (
             <p className="text-text text-[3.6rem] font-bold drop-shadow-lg">
               {nextPrayer} Namaz in{" "}
-              <span className="text-amber-200">
+              <span className="text-amber">
                 {" "}
                 {getTimeDifference(timings[nextPrayer])}
               </span>
@@ -197,7 +196,7 @@ function PrayerTimes() {
                   key={prayer.name}
                   className={`${
                     nextPrayer === prayer.name
-                      ? "bg-gradient-to-br from-[#2bfc4e]/20 to-shade/50 scale-110 hover:scale-[1.15]  "
+                      ? "bg-gradient-to-br from-primary/40 to-shade/50 scale-110 hover:scale-[1.15]  "
                       : "bg-shade/50"
                   } ${
                     curPrayer === prayer.name
@@ -230,13 +229,13 @@ function PrayerTimes() {
                   </div>
                   <div className="mt-[1.8rem]">
                     {curPrayer === prayer.name && (
-                      <div className="text-[1.2rem] font-bold uppercase tracking-wide mb-[1rem] bg-shade text-primary px-[1.5rem] py-[0.5rem] rounded-full">
+                      <div className="text-[1.2rem] font-bold uppercase tracking-wide mb-[1rem] bg-shade text-background px-[1.5rem] py-[0.5rem] rounded-full">
                         Current Prayer
                       </div>
                     )}
                     {nextPrayer === prayer.name &&
                       curPrayer !== prayer.name && (
-                        <div className="text-[1.2rem] font-bold uppercase tracking-wide mb-[1rem] bg-shade text-primary px-[1.5rem] py-[0.5rem] rounded-full">
+                        <div className="text-[1.2rem] font-bold uppercase tracking-wide mb-[1rem] bg-shade text-background px-[1.5rem] py-[0.5rem] rounded-full">
                           Next Prayer
                         </div>
                       )}
@@ -248,15 +247,7 @@ function PrayerTimes() {
             <li>Loading prayer times...</li>
           )}
         </ul>
-
-        <Link
-          to="/prayers"
-          className="text-[2.4rem] text-[tertiary] hover:cursor-pointer bg-shade/20 mx-auto py-[0.6rem] px-[1.8rem] rounded-xl hover:bg-tertiary transition-all mt-[4.8rem]            
-        
-        "
-        >
-          <button>More Prayer Info {">"}</button>
-        </Link>
+        <Button text={"Learn About Your Prayers"} route={"/prayers"} />
       </motion.section>
     </>
   );

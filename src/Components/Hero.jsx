@@ -48,7 +48,7 @@ function Hero() {
         </svg>
       </p>
 
-      <div className="daily__ayah  flex flex-col gap-[3.2rem] items-center max-w-[1200px] rounded-2xl  justify-center border-secondary border-2 ">
+      <div className="daily__ayah  flex flex-col gap-[3.2rem] dark:bg-background bg-shade items-center max-w-[1200px] rounded-2xl  justify-center border-tertiary border-2 ">
         <AyahText ayahText={randomAyah.arabic} />
         <AyahText ayahText={randomAyah.english} />
         <div className="ayah__origin flex gap-[0.8rem] items-center">

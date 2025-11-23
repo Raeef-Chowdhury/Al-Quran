@@ -21,14 +21,14 @@ function Header({ currentPath2 }) {
   return (
     <>
       {!sticky && (
-        <header className="bg-tertiary/10 header">
+        <header className={`    header p-[2rem]`}>
           <HeaderContent currentPath={currentPath} />
         </header>
       )}
       <AnimatePresence>
         {sticky && (
           <motion.header
-            className="bg-green-950 fixed header z-50 top-0 left-0 w-full"
+            className="bg-header fixed header p-[0.4rem] z-50 top-0 left-0 w-full"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
@@ -45,6 +45,53 @@ function Header({ currentPath2 }) {
   );
 }
 function HeaderContent({ currentPath }) {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (isDark) {
+      root.classList.add("dark");
+      root.style.setProperty("--color-background", "#102107");
+      root.style.setProperty("--color-primary", "#138926");
+      root.style.setProperty("--color-secondary", "#246a80");
+      root.style.setProperty("--color-tertiary", "#508899");
+      root.style.setProperty("--color-shade", "#a1d0a8");
+      root.style.setProperty("--color-text", "#e7f8de");
+
+      root.style.setProperty("--color-header", "oklch(26.6% 0.065 152.934)");
+      root.style.setProperty(
+        "--color-light-blue",
+        "oklch(90.1% 0.058 230.902)"
+      );
+      root.style.setProperty("--color-amber", "oklch(92.4% 0.12 95.746)");
+      root.style.setProperty("--color-slate", "oklch(37.2% 0.044 257.287)");
+    } else {
+      root.classList.remove("dark");
+      root.style.setProperty("--color-background", "#b0f7dd");
+      root.style.setProperty("--color-primary", "#17a22b");
+      root.style.setProperty("--color-secondary", "#3498b8");
+      root.style.setProperty("--color-tertiary", "#106b91");
+      root.style.setProperty("--color-shade", "#4a8a51");
+      root.style.setProperty("--color-text", "#102107");
+      root.style.setProperty(
+        "--color-light-blue",
+        "oklch(62.3% 0.214 259.815)"
+      );
+      root.style.setProperty("--color-header", "oklch(85.5% 0.138 181.071)");
+      root.style.setProperty("--color-amber", "oklch(55.5% 0.163 48.998)");
+      root.style.setProperty("--color-slate", "#293b2e");
+    }
+
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
   return (
     <ul className="flex items-center justify-around ">
       <div className="header__title">
@@ -191,21 +238,43 @@ function HeaderContent({ currentPath }) {
         </Link>
       </div>
 
-      <li className="text-[2.4rem] theme__icon hover:bg-shade hover:text-[#0b2026] transition-all trasnition-300ms cursor-pointer rounded-full ">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="#138926"
-          className="size-[6rem]"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-          />
-        </svg>
+      <li
+        onClick={toggleTheme}
+        className="text-[2.4rem] theme__icon hover:bg-shade hover:text-background transition-all transition-300ms cursor-pointer rounded-full p-2"
+      >
+        {isDark ? (
+          // Sun icon for light mode (shown in dark mode)
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#138926"
+            className="size-[6rem]"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+            />
+          </svg>
+        ) : (
+          // Moon icon for dark mode (shown in light mode)
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#138926"
+            className="size-[6rem]"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+            />
+          </svg>
+        )}
       </li>
     </ul>
   );

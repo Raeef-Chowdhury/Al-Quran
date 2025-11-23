@@ -297,7 +297,7 @@ function PrayerPage() {
                           {event.gregorian.month.en} {event.gregorian.day},{" "}
                           {event.gregorian.year}
                         </span>
-                        <span className=" text-[1.8rem] text-transparent bg-clip-text bg-gradient-to-br from-amber-500/70 to-amber-300/100 text-text/70 transition-colors duration-300 block">
+                        <span className=" text-[1.8rem] text-amber  transition-colors duration-300 block">
                           {(() => {
                             const daysUntil = getDaysUntil(
                               event.gregorian.date

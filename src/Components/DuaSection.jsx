@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import duas from "../data/daily-duas.json";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 function DuaSection() {
   const [dua, setDua] = useState([]);
   useEffect(() => {
@@ -43,14 +44,7 @@ function DuaSection() {
         source={dua.source}
         number={dua.number}
       />
-      <Link to="/duas">
-        <button
-          onClick={() => setDua(duas[Math.floor(Math.random() * duas.length)])}
-          className="px-[2.4rem] mt-[3.8rem] py-[1.2rem] bg-primary text-background mx-auto rounded-full hover:bg-primary/90 transition-all duration-300 text-[2.4rem] font-semibold shadow-md hover:shadow-xl transform hover:scale-105"
-        >
-          Show Every Dua
-        </button>
-      </Link>
+      <Button text="Explore Important Duas" route="/duas" />
     </motion.section>
   );
 }
