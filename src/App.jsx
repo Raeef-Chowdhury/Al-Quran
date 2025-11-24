@@ -6,7 +6,7 @@ import DuaSection from "./Components/DuaSection";
 import PrayerTimes from "./Components/PrayerSection";
 import { useState, useEffect } from "react";
 
-//TODO: Responsiveness
+//TODO: Analytics, post on discord/reddit
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
   const [surahs, setSurahs] = useState([]);
