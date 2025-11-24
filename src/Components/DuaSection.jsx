@@ -51,7 +51,7 @@ function DuaSection() {
 function DuaCard({ title, arabic, latin, translation, number }) {
   return (
     <Link to={`/duas/${number}`}>
-      <div className="max-w-[1200px] mx-auto group relative shadow-2xl p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
+      <div className="max-w-[1200px] max-md:max-w-[424px] max-2xl:max-w-[628px] max-sm:max-w-[244px] mx-auto group relative shadow-2xl p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
         <div className="flex justify-center items-center mb-[3.2rem]">
           <h2 className="text-[2.8rem] font-bold text-shade mb-[3rem] mt-[2rem] text-center ">
             {title}

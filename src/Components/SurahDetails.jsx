@@ -139,7 +139,7 @@ const SurahDetails = () => {
   };
 
   return (
-    <div className="max-w-[1440px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
+    <div className="max-w-[1440px] 2xl:max-w-[1288px] lg:max-w-[744px] md:max-w-[588px] sm:max-w-[424px] max-sm:max-w-[240px] xl:max-w-[1028px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
       {" "}
       <div className="fixed top-0 left-0 w-full h-[8px] bg-background/5 z-[9999]">
         <div
@@ -154,7 +154,7 @@ const SurahDetails = () => {
       <p className="text-[7.2rem] mb-[7.2rem]  text-shade">{surah.name}</p>
       <button
         onClick={scrollToStart}
-        className="fixed top-10 right-10 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
+        className="fixed top-10 max-sm:right-5 max-sm:top-5 right-10 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@ const SurahDetails = () => {
       </button>
       <button
         onClick={scrollToEnd}
-        className="fixed bottom-10 right-10 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
+        className="fixed bottom-10 right-10 max-sm:right-5 max-sm:bottom-5 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +190,7 @@ const SurahDetails = () => {
           />
         </svg>
       </button>
-      <ul className="flex flex-col gap-[8rem] text-right mx-auto ">
+      <ul className="flex flex-col gap-[8rem] text-center  min-md:text-right mx-auto ">
         {surah.ayahs.map((ayah, index) => (
           <li
             key={ayah.number}
@@ -203,9 +203,9 @@ const SurahDetails = () => {
                 : isPlaying == ayah.numberInSurah
                 ? "bg-primary/40 hover:bg-primary/50"
                 : "bg-primary/10 hover:bg-primary/20"
-            } group flex justify-between  shadow-2xl  text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
+            } group flex max-md:flex-col max-md:gap-[4rem] justify-between  shadow-2xl text-center  min-md:text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
           >
-            <div className="flex flex-col gap-[2.4rem] items-left">
+            <div className="flex min-md:flex-col   gap-[2.4rem] items-center max-md:justify-center">
               <div
                 className={` ${
                   isMemorized.includes(ayah.numberInSurah)
@@ -281,7 +281,7 @@ const SurahDetails = () => {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-col items-end justify-end">
+            <div className="flex flex-col max-md:items-center items-end justify-end">
               <p
                 className={` ${
                   isMemorized.includes(ayah.numberInSurah) &&
@@ -290,7 +290,7 @@ const SurahDetails = () => {
                     : isMemorized.includes(ayah.numberInSurah)
                     ? "text-secondary"
                     : ""
-                } text-[3.6rem] max-w-[90%] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
+                } text-[3.6rem] max-w-[90%] max-md:text-center max-md:max-w-[100%] max-md:ml-[0rem] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
               >
                 {ayah.text}
               </p>
@@ -300,7 +300,7 @@ const SurahDetails = () => {
                   isPlaying === ayah.numberInSurah
                     ? "text-primary"
                     : "text-text"
-                } text-right  leading-relaxed font-light italic  max-w-[90%] ml-auto`}
+                }text-center  min-md:text-right leading-relaxed font-light italic  max-md:max-w-[100%] max-md:ml-[0rem]  max-w-[90%] ml-auto`}
               >
                 {translation?.ayahs[index]?.text}
               </p>

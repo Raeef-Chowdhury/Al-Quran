@@ -56,28 +56,27 @@ function DuaPage() {
   return (
     <>
       <Header />
-
-      <main className="max-w-[1720px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
-        <div className="flex flex-col  items-center gap-[2.4rem]">
-          <h1 className="text-shade text-[6.4rem] border-b-amber-500 border-b-8 mt-[4.8rem] ">
+      <main className="max-w-[1600px] 2xl:max-w-[1440px] lg:max-w-[760px] md:max-w-[644px] sm:max-w-[544px] max-sm:max-w-[95%] xl:max-w-[1044px] flex flex-col items-center mx-auto surah__reading w-[fit-content] max-sm:w-full h-[fit-content] px-4 max-sm:px-2">
+        <div className="flex flex-col items-center gap-[2.4rem] max-sm:gap-[1.6rem]">
+          <h1 className="text-shade text-[6.4rem] max-sm:text-[4rem] border-b-amber-500 border-b-8 max-sm:border-b-4 mt-[4.8rem] max-sm:mt-[3rem]">
             All Duas
           </h1>
-          <p className="text-text text-[2.4rem]  ">
+          <p className="text-text text-[2.4rem] max-sm:text-[1.8rem] text-center max-sm:px-2">
             Reflect on the most important duas of the Quran
           </p>
           <input
-            className="text-slate-300  text-[2rem] py-[0.8rem] mt-[3.6rem]  outline-none w-[80rem]  mx-auto     px-[2rem] bg-slate border-3  border-shade  rounded-xl "
+            className="text-slate-300 text-[2rem] max-sm:text-[1.6rem] py-[0.8rem] max-sm:py-[0.6rem] mt-[3.6rem] max-sm:mt-[2rem] outline-none w-[80rem] max-sm:w-full mx-auto px-[2rem] max-sm:px-[1.5rem] bg-slate border-3 border-shade rounded-xl"
             id="text"
             placeholder="Search by name or translation here..."
             value={duaSearch}
             onChange={(e) => setDuaSearch(e.target.value)}
           />
-          <div className="flex mt-[3.6rem] mb-[7.2rem] items-center justify-center items-center flex-wrap gap-[1.8rem] w-[120rem] ">
+          <div className="flex mt-[3.6rem] max-sm:mt-[2rem] mb-[7.2rem] max-sm:mb-[4rem]  items-center justify-center flex-wrap gap-[1.8rem] max-sm:gap-[1rem] max-xl:min-w-[95rem] max-sm:min-w-0 min-w-[120rem] max-sm:w-[100%]">
             <button
               onClick={() => setAll()}
-              className={` text-[2rem] ${
-                bg === "All" ? "bg-gradient-to-br  from-shade  to-primary" : ""
-              }  text-text py-[0.8rem] hover:bg-gradient-to-br  from-shade  to-primary hover:bg-primary text   min-w-[18rem]  rounded-full overflow-hidden bg-shade/10 transition-all duration-300 hover:cursor-pointer`}
+              className={`text-[2rem]  ${
+                bg === "All" ? "bg-gradient-to-br from-shade to-primary" : ""
+              } text-text py-[0.8rem] max-sm:py-[0.6rem] hover:bg-gradient-to-br from-shade to-primary hover:bg-primary text min-w-[18rem] max-sm:min-w-[14rem] rounded-full overflow-hidden bg-shade/10 transition-all duration-300 hover:cursor-pointer`}
             >
               All
             </button>
@@ -91,38 +90,35 @@ function DuaPage() {
             ))}
             <button
               onClick={() => setOther()}
-              className={` text-[2rem] ${
-                bg === "Other"
-                  ? "bg-gradient-to-br  from-shade  to-primary"
-                  : ""
-              } text-text py-[0.8rem] hover:bg-gradient-to-br  from-shade  to-primary hover:bg-primary text   min-w-[18rem]  rounded-full overflow-hidden bg-shade/10 transition-all duration-300 hover:cursor-pointer`}
+              className={`text-[2rem]  ${
+                bg === "Other" ? "bg-gradient-to-br from-shade to-primary" : ""
+              } text-text py-[0.8rem] max-sm:py-[0.6rem] hover:bg-gradient-to-br from-shade to-primary hover:bg-primary text min-w-[18rem] max-sm:min-w-[14rem] rounded-full overflow-hidden bg-shade/10 transition-all duration-300 hover:cursor-pointer`}
             >
               Other
-            </button>{" "}
+            </button>
           </div>
-          <p className=" text-[2rem] text-text">
+          <p className="text-[2rem] max-sm:text-[1.6rem] text-text">
             Showing {dua.length} of 68 Duas
           </p>
         </div>
-        <ul className="mt-[7.2rem] grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
+        <ul className="mt-[7.2rem] max-sm:mt-[4rem] grid max-2xl:grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 grid-cols-4 gap-[6rem] max-sm:gap-[3rem] max-w-[1600px] mx-auto w-full">
           {dua.map((dua) => (
             <DuaCard key={dua.number} dua={dua} />
           ))}
         </ul>
       </main>
-      <button className="mt-[6rem] ">
+      <button className="mt-[6rem] max-sm:mt-[4rem]">
         <Link
-          className="text-[1.8rem] rounded-xl px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
+          className="text-[1.8rem] max-sm:text-[1.6rem] rounded-xl px-[2rem] max-sm:px-[1.6rem] py-[1rem] max-sm:py-[0.8rem] text-text text-bold bg-primary flex items-center gap-[1.2rem] max-sm:gap-[0.8rem]"
           to="/"
         >
-          {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="h-12 w-12"
+            className="h-12 w-12 max-sm:h-8 max-sm:w-8"
           >
             <path
               strokeLinecap="round"
@@ -140,7 +136,7 @@ function DuaCard({ dua }) {
   return (
     <>
       <Link to={`/duas/${dua.number}`}>
-        <div className="max-w-[480px] dua__card--page h-[240px] mx-auto group relative shadow-2xl p-[1rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
+        <div className="max-w-[480px] max-sm:max-w-[244px] max-sm:h-[144px] dua__card--page max-lg:h-[180px] h-[240px] mx-auto group relative shadow-2xl p-[1rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
           <div className="flex flex-col gap-[1.6rem] justify-center items-center ">
             <div className="mt-[1.6rem]  gap-[0.8rem] bg-primary text-background font-bold rounded-full px-[2.4rem] py-[0.6rem] flex items-center justify-center text-[1.8rem] shadow-md uppercase tracking-wide">
               <span>

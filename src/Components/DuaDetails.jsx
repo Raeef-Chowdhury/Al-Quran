@@ -60,7 +60,7 @@ function DuaDetails() {
           </span>
         </div>
       </div>
-      <div className="pt-[9.6rem] max-w-[1200px] mx-auto group relative shadow-2xl p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
+      <div className="pt-[9.6rem] max-w-[1200px] max-xl:max-w-[644px] max-md:max-w-[444px] max-sm:max-w-[288px] mx-auto group relative shadow-2xl p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">
         <p className="text-[3rem] leading-[1.8] text-shade font-arabic mb-[3rem] text-right">
           {dua.arabic}
         </p>
@@ -76,7 +76,7 @@ function DuaDetails() {
         </div>
       </div>{" "}
       {dua.benefits && (
-        <div className="mt-[6rem] mx-auto max-w-[1200px] rounded-2xl bg-primary/5 rounded-xl p-[2.4rem] mb-[2rem] border-b-4 border-primary">
+        <div className="mt-[6rem] mx-auto max-w-[1200px] max-xl:max-w-[644px] max-md:max-w-[444px] max-sm:max-w-[288px] rounded-2xl bg-primary/5 rounded-xl p-[2.4rem] mb-[2rem] border-b-4 border-primary">
           <h3 className="text-[2.4rem] font-semibold text-primary uppercase mb-[1rem] tracking-wide">
             Benefits
           </h3>
@@ -91,7 +91,7 @@ function DuaDetails() {
           {dua.source}
         </p>
       </div>
-      <div className="max-w-[920px] mx-auto mt-[12rem] justify-between  flex items-center gap-[3rem] self-center">
+      <div className="max-w-[920px] mx-auto mt-[12rem] justify-around max-sm:grid max-sm:grid-cols-2 max-sm:justify-items-center max-sm:gap-[2rem] max-sm:w-[240px]   flex items-center max-xl:gap-[0rem]  gap-[3rem] self-center">
         {dua.number > 1 ? (
           <Link
             to={`/duas/${dua.number - 1}`}

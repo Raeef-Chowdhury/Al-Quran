@@ -69,61 +69,61 @@ function SurahPage() {
   return (
     <>
       <Header />
-      <main className="max-w-[1720px] flex flex-col items-center mx-auto surah__reading  w-[fit-content] h-[fit-content]">
-        <div className="flex flex-col items-center gap-[2.4rem]">
-          <h1 className="text-shade text-[6.4rem] border-b-amber-500 border-b-8 mt-[4.8rem] ">
+      <main className="max-w-[1720px] 2xl:max-w-[1720px]  lg:max-w-[1200px] md:max-w-[720px] sm:max-w-[544px] max-sm:max-w-[95%] xl:max-w-[1344px] flex flex-col items-center mx-auto surah__reading w-[fit-content] max-sm:w-full h-[fit-content] px-4 max-sm:px-2">
+        <div className="flex flex-col items-center gap-[2.4rem] max-sm:gap-[1.6rem]">
+          <h1 className="text-shade text-[6.4rem] max-sm:text-[4rem] border-b-amber-500 border-b-8 max-sm:border-b-4 mt-[4.8rem] max-sm:mt-[3rem]">
             All Surahs
           </h1>
-          <p className="text-text text-[2.4rem]  ">
+          <p className="text-text text-[2.4rem] max-sm:text-[1.8rem] text-center max-sm:px-2">
             Browse and read from all 114 Surahs of the Quran
           </p>
           <input
-            className="text-slate-300 mb-[1.2rem]  text-[2rem] py-[0.8rem] mt-[2.4rem] w-full outline-none min-w-[80rem] w-full mx-auto   flex-1  px-[2rem] bg-slate border-3  border-shade  rounded-xl "
+            className="text-slate-300 mb-[1.2rem] max-sm:mb-[0.8rem] w-full md:min-w-[60rem] min-w-[80rem] max-sm:min-w-0 text-[2rem] max-sm:text-[1.6rem] py-[0.8rem] max-sm:py-[0.6rem] mt-[2.4rem] max-sm:mt-[1.6rem] outline-none mx-auto px-[2rem] max-sm:px-[1.5rem] bg-slate border-3 border-shade rounded-xl"
             id="searchbar"
             type="text"
             placeholder="Search by name,number or translation here..."
             value={quranSearch}
             onChange={(e) => setQuranSearch(e.target.value)}
           />
-          <div className="flex items-center mb-[4.8rem] justify-between w-[80%] bg-text border-shade border-4 p-0 rounded-full overflow-hidden">
+          <div className="flex items-center mb-[4.8rem] max-sm:mb-[3rem] justify-between w-[80%] max-sm:w-[95%] bg-text border-shade border-4 max-sm:border-2 p-0 rounded-full overflow-hidden">
             <button
               onClick={() => setAll(surahs)}
-              className={`flex-1 text-[2.4rem] ${
+              className={`flex-1 text-[2.4rem] max-sm:text-[1.6rem] ${
                 bgState === "all" ? "bg-background" : ""
-              } text-primary py-[0.8rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
+              } text-primary py-[0.8rem] max-sm:py-[0.6rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
             >
               All
             </button>
             <button
               onClick={() => setShort(surahs)}
-              className={`flex-1 text-[2.4rem] ${
+              className={`flex-1 text-[2.4rem] max-sm:text-[1.6rem] ${
                 bgState === "short" ? "bg-background" : ""
-              } text-primary py-[0.8rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
+              } text-primary py-[0.8rem] max-sm:py-[0.6rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
             >
               Short
             </button>
             <button
               onClick={() => setMedium(surahs)}
-              className={`flex-1 text-[2.4rem] ${
+              className={`flex-1 text-[2.4rem] max-sm:text-[1.6rem] ${
                 bgState === "medium" ? "bg-background" : ""
-              } text-primary py-[0.8rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
+              } text-primary py-[0.8rem] max-sm:py-[0.6rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
             >
               Medium
             </button>
             <button
               onClick={() => setLong(surahs)}
-              className={`flex-1 text-[2.4rem] ${
+              className={`flex-1 text-[2.4rem] max-sm:text-[1.6rem] ${
                 bgState === "long" ? "bg-background" : ""
-              } text-primary py-[0.8rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
+              } text-primary py-[0.8rem] max-sm:py-[0.6rem] hover:bg-background transition-all duration-300 hover:cursor-pointer`}
             >
               Long
-            </button>{" "}
+            </button>
           </div>
-          <p className=" text-[2rem] text-text">
+          <p className="text-[2rem] max-sm:text-[1.6rem] text-text">
             Showing {surahs.length} of 114 surahs
           </p>
         </div>
-        <ul className="mt-[7.2rem] grid grid-cols-4 gap-[6rem]  max-w-[1600px] mx-auto w-full">
+        <ul className="mt-[7.2rem] max-sm:mt-[4rem] grid grid-cols-4 max-2xl:grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-[6rem] max-sm:gap-[3rem] max-w-[1600px] mx-auto w-full">
           {surahs.map((surah) => {
             return (
               <QuranCard
@@ -140,19 +140,18 @@ function SurahPage() {
           })}
         </ul>
       </main>
-      <button className="mt-[6rem] ">
+      <button className="mt-[6rem] max-sm:mt-[4rem]">
         <Link
-          className="text-[1.8rem] rounded-xl px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
+          className="text-[1.8rem] max-sm:text-[1.6rem] rounded-xl px-[2rem] max-sm:px-[1.6rem] py-[1rem] max-sm:py-[0.8rem] text-text text-bold bg-primary flex items-center gap-[1.2rem] max-sm:gap-[0.8rem]"
           to="/"
         >
-          {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="h-12 w-12"
+            className="h-12 w-12 max-sm:h-8 max-sm:w-8"
           >
             <path
               strokeLinecap="round"
@@ -175,7 +174,7 @@ function QuranCard({
   number,
 }) {
   return (
-    <li className="max-h-[40rem] quran__page--card  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
+    <li className="max-h-[40rem] quran__page--card max-sm:max-w-[320px] max-sm:mx-auto  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
       <Link to={`/surahs/${number}`}>
         <div className="flex justify-between items-center w-full mb-6">
           <div className="w-24 h-24  rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600  flex items-center justify-center shadow-lg transition-all duration-300 transform ">

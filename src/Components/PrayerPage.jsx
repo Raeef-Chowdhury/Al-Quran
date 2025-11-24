@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 function PrayerPage() {
   const date = new Date();
   const day = date.getDate();
@@ -28,8 +29,6 @@ function PrayerPage() {
     if (savedHistory) {
       const parsedHistory = JSON.parse(savedHistory);
       setHistory(parsedHistory);
-
-      // Load today's prayers
       if (parsedHistory[todayKey]) {
         setPrayers(parsedHistory[todayKey]);
       }
@@ -165,11 +164,11 @@ function PrayerPage() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className=" mt-[4.8rem] mx-auto p-6 space-y-6"
+        className="mt-[4.8rem] mx-auto p-6 max-sm:p-4 space-y-6"
       >
         {/* Date Display */}
-        <div className=" text-center max-w-5xl mx-auto">
-          <p className="text-text  text-[3.2rem] font-semibold mb-2">
+        <div className="text-center max-w-5xl mx-auto max-sm:max-w-full">
+          <p className="text-text text-[3.2rem] max-sm:text-[2.4rem] font-semibold mb-2 max-sm:mb-1">
             {date.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
@@ -178,95 +177,110 @@ function PrayerPage() {
             })}
           </p>
           {currentHijriDate ? (
-            <p className="text-primary text-[2.4rem] mt-[2.4rem] font-bold">
+            <p className="text-primary text-[2.4rem] max-sm:text-[1.8rem] mt-[2.4rem] max-sm:mt-[1.6rem] font-bold">
               {currentHijriDate.hijri.day} {currentHijriDate.hijri.month.en}{" "}
               {currentHijriDate.hijri.year}
             </p>
           ) : (
-            <p className="text-text opacity-60 text-lg">
+            <p className="text-text opacity-60 text-lg max-sm:text-base">
               Loading Islamic date...
             </p>
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-[8rem]">
-          <div className="rounded-2xl   text-text text-center transition-all duration-300">
-            <div className="flex items-baseline justify-center gap-2 mb-3">
-              <span className="text-[4rem] font-bold opacity-80 ">🔥</span>
-              <p className="text-[4rem] font-semibold opacity-90">
+
+        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-6 max-sm:gap-4 mt-[8rem] max-sm:mt-[4rem]">
+          <div className="rounded-2xl text-text text-center transition-all duration-300">
+            <div className="flex items-baseline justify-center gap-2 max-sm:gap-1 mb-3 max-sm:mb-2">
+              <span className="text-[4rem] max-sm:text-[3rem] font-bold opacity-80">
+                🔥
+              </span>
+              <p className="text-[4rem] max-sm:text-[2.8rem] font-semibold opacity-90">
                 Current Streak
               </p>
-              <p className="text-xl opacity-60 ml-[5px] mb-[1.2rem]">(days) </p>
             </div>
-            <p className="text-[8rem] w-40 h-40 flex items-center justify-center p-[4rem] max-w-[fit-content] mx-auto  font-extrabold text-primary leading-none bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20  rounded-full">
-              <span className="mb-[1rem]">{currentStreak}</span>
+            <p className="text-[8rem] max-sm:text-[6rem] w-40 h-40 max-sm:w-32 max-sm:h-32 flex items-center justify-center p-[4rem] max-sm:p-[3rem] max-w-[fit-content] mx-auto font-extrabold text-primary leading-none bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-full">
+              <span className="mb-[1rem] max-sm:mb-[0.5rem]">
+                {currentStreak}
+              </span>
+            </p>
+            <p className="mt-[0.8rem] text-xl max-sm:text-base opacity-60 ml-[5px] mb-[1.2rem]">
+              (days){" "}
             </p>
           </div>
 
           <div className="rounded-2xl text-text text-center transition-all duration-300">
-            <div className="flex items-baseline justify-center gap-2 mb-3">
-              <p className="text-[4rem] font-semibold opacity-90">
+            <div className="flex items-baseline justify-center gap-2 max-sm:gap-1 mb-3 max-sm:mb-2">
+              <p className="text-[4rem] max-sm:text-[2.8rem] font-semibold opacity-90">
                 Today{"'"}s Progress
               </p>
             </div>
-            <p className="text-[8rem] w-40 h-40 flex items-center justify-center p-[4rem] max-w-[fit-content] mx-auto font-extrabold text-tertiary leading-none bg-gradient-to-br from-tertiary/10 to-tertiary/5 border border-tertiary/20 rounded-full">
-              <span className="mb-[1rem]">{completedCount}</span>
+            <p className="text-[8rem] max-sm:text-[6rem] w-40 h-40 max-sm:w-32 max-sm:h-32 flex items-center justify-center p-[4rem] max-sm:p-[3rem] max-w-[fit-content] mx-auto font-extrabold text-tertiary leading-none bg-gradient-to-br from-tertiary/10 to-tertiary/5 border border-tertiary/20 rounded-full">
+              <span className="mb-[1rem] max-sm:mb-[0.5rem]">
+                {completedCount}
+              </span>
             </p>
-            <p className="text-xl opacity-60 mt-3">/5 prayers</p>
-            <div className="mt-4 bg-text/10 rounded-full h-3 overflow-hidden max-w-[200px] mx-auto">
+            <p className="text-xl max-sm:text-base opacity-60 mt-3 max-sm:mt-2">
+              /5 prayers
+            </p>
+            <div className="mt-4 max-sm:mt-3 bg-text/10 rounded-full h-3 max-sm:h-2 overflow-hidden max-w-[200px] max-sm:max-w-[150px] mx-auto">
               <div
-                className="bg-gradient-to-r from-tertiary to-primary h-3 rounded-full transition-all duration-500 ease-out"
+                className="bg-gradient-to-r from-tertiary to-primary h-3 max-sm:h-2 rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
           </div>
         </div>
 
-        <div className="rounded-lg  p-6">
-          <h2 className="text-[2.4rem] font-bold text-text mb-[3.2rem] mt-[6rem]">
+        <div className="rounded-lg p-6 max-sm:p-4">
+          <h2 className="text-[2.4rem] max-sm:text-[2rem] font-bold text-text mb-[3.2rem] max-sm:mb-[2rem] mt-[6rem] max-sm:mt-[4rem]">
             Daily Prayers
           </h2>
-          <div className="space-y-10 max-w-[1200px] mx-auto ">
+          <div className="space-y-10 max-sm:space-y-6 max-w-[1200px] max-xl:max-w-[324px] mx-auto">
             {prayerList.map((prayer) => (
               <label
                 key={prayer.key}
                 className={`flex ${
                   prayers[prayer.key] ? "bg-primary/20" : "bg-primary/40"
-                } group  items-center justify-between p-4 rounded-lg hover:bg-shade cursor-pointer transition-colors border border-transparent hover:border-primary`}
+                } group items-center justify-between p-4 max-sm:p-3 rounded-lg hover:bg-shade cursor-pointer transition-colors border border-transparent hover:border-primary`}
               >
-                <div className="flex items-center ">
+                <div className="flex items-center">
                   <input
                     type="checkbox"
                     checked={prayers[prayer.key]}
                     onChange={() => togglePrayer(prayer.key)}
-                    className="w-8 h-8 accent-primary rounded cursor-pointer"
+                    className="w-8 h-8 max-sm:w-6 max-sm:h-6 accent-primary rounded cursor-pointer"
                   />
-                  <div className="ml-3">
+                  <div className="ml-3 max-sm:ml-2">
                     <span
-                      className={`text-[3rem] ml-[1.8rem] group-hover:text-secondary/50  font-semibold ${
+                      className={`text-[3rem] max-sm:text-[2rem] ml-[1.8rem] max-sm:ml-[1rem] group-hover:text-secondary/50 font-semibold ${
                         prayers[prayer.key]
                           ? "line-through opacity-50 text-text"
-                          : " "
-                      } `}
+                          : ""
+                      }`}
                     >
                       {prayer.name}
                     </span>
                   </div>
                 </div>
                 {prayers[prayer.key] && (
-                  <span className="text-primary text-4xl">✓</span>
+                  <span className="text-primary text-4xl max-sm:text-3xl">
+                    ✓
+                  </span>
                 )}
               </label>
             ))}
           </div>
         </div>
 
-        <div className=" rounded-lg  p-6">
-          <h2 className="text-[4rem] font-bold text-text  mb-4 mt-[7.2rem]">
+        <div className="rounded-lg p-6 max-sm:p-4">
+          <h2 className="text-[4rem] max-sm:text-[2.8rem] font-bold text-text mb-4 max-sm:mb-3 mt-[7.2rem] max-sm:mt-[4rem]">
             Upcoming Islamic Events
           </h2>
-          <div className="grid grid-cols-2 place-items-end place-content-end justify-items-end items-end mt-[6rem] gap-[6rem]">
+          <div className="grid grid-cols-2 max-xl:grid-cols-1 mt-[6rem] max-sm:mt-[4rem] gap-[6rem] max-sm:gap-[3rem]">
             {loading ? (
-              <div className="text-[4.8rem] text-text">Loading events...</div>
+              <div className="text-[4.8rem] max-sm:text-[3rem] text-text">
+                Loading events...
+              </div>
             ) : (
               <>
                 {upcomingEvents.map((event, idx) => (
@@ -275,29 +289,28 @@ function PrayerPage() {
                     className={`group ${
                       getDaysUntil(event.gregorian.date) < 0
                         ? "bg-primary/30 hover:cursor-pointer"
-                        : "bg-gradient-to-br from-primary to-primary/50 hover:border-teal-500  hover:cursor-pointer hover:scale-110"
-                    }  ${
+                        : "bg-gradient-to-br from-primary to-primary/50 hover:border-teal-500 hover:cursor-pointer hover:scale-110 max-sm:hover:scale-105"
+                    } ${
                       [2, 0].includes(idx)
-                        ? "transform translate-x-[22.5rem]"
-                        : "transform translate-x-[-22.5rem]"
-                    }
- mx-auto w-full max-w-[440px] items-center  text-center max-w-7xl p-6  rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300`}
+                        ? "max-xl:translate-x-[0rem] max-2xl:translate-x-[5rem] 2xl:translate-x-[12.5rem] transform translate-x-[22.5rem]"
+                        : "max-xl:translate-x-[0rem] max-2xl:translate-x-[-5rem] 2xl:translate-x-[-12.5rem] transform translate-x-[-22.5rem]"
+                    } mx-auto w-full max-w-[440px] max-sm:max-w-full items-center max-2xl:justify-center text-center p-6 max-sm:p-4 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300`}
                   >
                     {console.log(idx)}
-                    <div className="flex flex-col gap-[2.4rem]">
-                      <span className="font-bold text-[3.6rem] text-background text-center transition-colors duration-300 block">
+                    <div className="flex flex-col gap-[2.4rem] max-sm:gap-[1.6rem]">
+                      <span className="font-bold text-[3.6rem] max-sm:text-[2.4rem] text-background text-center transition-colors duration-300 block">
                         {event.hijri.date === `01-01-${hijriYear}`
                           ? "Islamic New Year"
                           : event.hijri.date === `01-09-${hijriYear}`
                           ? "Ramadan"
                           : event.hijri.holidays[0]}
                       </span>
-                      <div className="flex items-center justify-around">
-                        <span className="text-[2rem] text-left text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
+                      <div className="flex items-center justify-around max-sm:flex-col max-sm:gap-2">
+                        <span className="text-[2rem] max-sm:text-[1.6rem] text-left max-sm:text-center text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
                           {event.gregorian.month.en} {event.gregorian.day},{" "}
                           {event.gregorian.year}
                         </span>
-                        <span className=" text-[1.8rem] text-amber  transition-colors duration-300 block">
+                        <span className="text-[1.8rem] max-sm:text-[1.4rem] text-amber transition-colors duration-300 block">
                           {(() => {
                             const daysUntil = getDaysUntil(
                               event.gregorian.date
@@ -319,6 +332,28 @@ function PrayerPage() {
           </div>
         </div>
       </motion.div>
+      <button className="mt-[6rem] max-sm:mt-[4rem]">
+        <Link
+          className="text-[1.8rem] max-sm:text-[1.6rem] rounded-xl px-[2rem] max-sm:px-[1.6rem] py-[1rem] max-sm:py-[0.8rem] text-text text-bold bg-primary flex items-center gap-[1.2rem] max-sm:gap-[0.8rem]"
+          to="/"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-12 w-12 max-sm:h-8 max-sm:w-8"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1V9.75z"
+            />
+          </svg>
+          Back to Homepage
+        </Link>
+      </button>
     </section>
   );
 }

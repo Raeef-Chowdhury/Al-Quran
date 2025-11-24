@@ -6,8 +6,6 @@ import DuaSection from "./Components/DuaSection";
 import PrayerTimes from "./Components/PrayerSection";
 import { useState, useEffect } from "react";
 
-//TODO: Bookmark surah & dua
-//TODO: Light Theme
 //TODO: Responsiveness
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
