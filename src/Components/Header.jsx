@@ -291,7 +291,10 @@ function HeaderContent({ currentPath }) {
             />
           </div>
         </li>
-        <button onClick={toggleSidebar} className="  text-[7.2rem] ">
+        <button
+          onClick={toggleSidebar}
+          className="text-primary  text-[7.2rem] "
+        >
           {open ? "✕" : "☰"}
         </button>
       </div>
@@ -303,7 +306,7 @@ function HeaderContent({ currentPath }) {
             animate={{ x: open ? 0 : "-100%" }}
             exit={{ x: "-100%", opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 h-full w-full  bg-background text-text p-6 z-50 lg:hidden"
+            className="fixed  top-0 left-0 h-full w-full overflow-y-scroll  bg-background text-text p-6 z-50 lg:hidden"
           >
             <button
               onClick={() => setOpen(!open)}
