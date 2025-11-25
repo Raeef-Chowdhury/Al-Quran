@@ -13,7 +13,8 @@
 import Header from "./Header";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import duas from "../data/daily-duas.json";
+import duas from "../Data/daily-duas.json";
+
 function DuaPage() {
   const [dua, setDua] = useState([]);
   const [allDuas, setAllDuas] = useState([]);

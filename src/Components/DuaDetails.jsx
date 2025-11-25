@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import duas from "../data/daily-duas.json";
+import duas from "../Data/daily-duas.json";
 function DuaDetails() {
   const { id } = useParams();
 
