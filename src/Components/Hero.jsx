@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { motion } from "motion/react";
-import ayahQuotes from "../data/quran.json";
+import ayahQuotes from "../Data/quran.json";
 import { useEffect, useState } from "react";
 
 function Hero() {
