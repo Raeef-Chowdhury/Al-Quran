@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import duas from "../data/daily-duas.json";
+import duas from "../Data/daily-duas.json";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 function DuaSection() {
