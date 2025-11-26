@@ -41,7 +41,6 @@ function PrayerTimes() {
     } else {
       setHasLocation(false);
     }
-    console.log(hasLocation);
   }, []);
   useEffect(() => {
     let mounted = true;
@@ -186,7 +185,7 @@ function PrayerTimes() {
     >
       {hasLocation === false ? (
         <>
-          <div className="heading__box flex flex-col items-center">
+          <div className="heading__box flex flex-col items-center mx-auto max-lg:max-w-[288px]">
             <h2 className="text-[6.4rem] text-primary font-bold underline">
               PRAYERS
             </h2>
@@ -209,11 +208,11 @@ function PrayerTimes() {
             <h3 className="text-[4.8rem] text-primary font-bold text-center mb-[3rem]">
               The Five Daily Prayers
             </h3>
-            <ul className="prayer_times  flex items-center justify-center gap-[0.8rem] sm:gap-[3rem] md:gap-[3rem] lg:gap-[4.5rem] 2xl:gap-[6rem] px-[0.5rem] sm:px-[1rem]">
+            <ul className="prayer_times max-lg:grid max-lg:grid-cols-2 justify-center items-center flex items-center justify-center max-lg:gap-[1.5rem] gap-[3rem]  px-[0.5rem] sm:px-[1rem]">
               {prayers.map((prayer) => (
                 <li
                   key={prayer.name}
-                  className="bg-gradient-to-br  mx-auto from-primary/30 to-shade/40 rounded-lg sm:rounded-xl 2xl:rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-[0.8rem] max-sm:p-[0rem] lg:p-[1.5rem] 2xl:p-[2rem] min-w-[11rem] sm:min-w-[14rem] lg:min-w-[17rem] 2xl:min-w-[25rem] min-h-[14rem] sm:min-h-[18rem] lg:min-h-[22rem] 2xl:min-h-[30rem] transform transition-all duration-300 hover:scale-105 hover:cursor-pointer hover:shadow-2xl flex-shrink-0"
+                  className="bg-gradient-to-br w-full max-w-[25rem]  max-lg: max-lg:mx-auto from-primary/30 to-shade/40 rounded-lg sm:rounded-xl 2xl:rounded-2xl flex  items-center justify-center text-center shadow-lg p-[0.8rem] max-sm:p-[0rem] lg:p-[1.5rem] 2xl:p-[2rem] min-w-[11rem] sm:min-w-[14rem] lg:min-w-[17rem] 2xl:min-w-[25rem] min-h-[14rem] sm:min-h-[18rem] lg:min-h-[22rem] 2xl:min-h-[30rem] transform transition-all duration-300 hover:scale-105 hover:cursor-pointer hover:shadow-2xl flex-shrink-0"
                 >
                   <div className="flex flex-col items-center justify-center h-full">
                     <h3 className="text-white text-[1.4rem] sm:text-[2rem] lg:text-[2.4rem] 2xl:text-[3.6rem] font-bold mb-[0.6rem] sm:mb-[1rem] lg:mb-[1.2rem] 2xl:mb-[1rem]">

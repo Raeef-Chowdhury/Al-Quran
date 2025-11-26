@@ -9,8 +9,6 @@ function DuaDetails() {
     const foundDua = duas.find((dua) => dua.number === Number(id));
     setDua(foundDua || duas);
   }, [id]);
-  const duaId = duas.map((dua) => dua.number === Number(`${id}`));
-  console.log(dua, setDua, id, duaId);
 
   return (
     <>

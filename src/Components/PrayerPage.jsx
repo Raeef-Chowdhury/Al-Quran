@@ -296,7 +296,6 @@ function PrayerPage() {
                         : "max-xl:translate-x-[0rem] max-2xl:translate-x-[-5rem] 2xl:translate-x-[-12.5rem] transform translate-x-[-22.5rem]"
                     } mx-auto w-full max-w-[440px] max-sm:max-w-full items-center max-2xl:justify-center text-center p-6 max-sm:p-4 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300`}
                   >
-                    {console.log(idx)}
                     <div className="flex flex-col gap-[2.4rem] max-sm:gap-[1.6rem]">
                       <span className="font-bold text-[3.6rem] max-sm:text-[2.4rem] text-background text-center transition-colors duration-300 block">
                         {event.hijri.date === `01-01-${hijriYear}`

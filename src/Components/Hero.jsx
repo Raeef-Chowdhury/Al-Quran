@@ -9,8 +9,6 @@ function Hero() {
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 23) + 1;
     const ayah = ayahQuotes[`ranAyah${randomNumber}`][0];
-    console.log(ayah, randomNumber);
-
     setRandomAyah(ayah);
   }, []);
   if (!randomAyah) return null;

@@ -45,7 +45,6 @@ function DuaPage() {
   }
   function setOther() {
     const filter = allDuas.filter((d) => !excludeArr.includes(d.category));
-    console.log(filter);
     setBg("Other");
     setDua(filter);
   }

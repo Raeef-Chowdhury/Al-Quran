@@ -5,6 +5,7 @@ import SurahSection from "./Components/SurahSection";
 import DuaSection from "./Components/DuaSection";
 import PrayerTimes from "./Components/PrayerSection";
 import { useState, useEffect } from "react";
+import { initGA } from "./utils/analytics";
 
 //TODO: Analytics, post on discord/reddit
 function App() {
@@ -20,6 +21,9 @@ function App() {
     };
 
     fetchSurahs();
+  }, []);
+  useEffect(() => {
+    initGA();
   }, []);
   return (
     <>

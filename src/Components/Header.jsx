@@ -2,12 +2,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-function Header({ currentPath2 }) {
+function Header() {
   const [sticky, setSticky] = useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log(currentPath2);
   function handleSticky() {
     if (window.scrollY > 520) {
       setSticky(true);
@@ -102,7 +101,7 @@ function HeaderContent({ currentPath }) {
           <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer ">
             <div className="h-[9.6rem] scale-150 flex items-center">
               <img
-                src="/src/assets/remove-photos-background-removed.png"
+                src="/assets/remove-photos-background-removed.png"
                 className="h-full w-auto scale-125 bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent"
                 alt="logo"
               />
@@ -285,7 +284,7 @@ function HeaderContent({ currentPath }) {
         <li className="text-primary  transition-all transition-300ms hover:scale-110 hover:cursor-pointer ">
           <div className="h-[9.6rem] scale-150 flex items-center">
             <img
-              src="/src/assets/remove-photos-background-removed.png"
+              src="/assets/remove-photos-background-removed.png"
               className="h-full w-auto scale-125 bg-[linear-gradient(to_right,#138926_0%,#17a22b_50%,#138926_100%)] bg-clip-text text-transparent"
               alt="logo"
             />

@@ -173,7 +173,11 @@ const SurahDetails = () => {
       </button>
       <button
         onClick={scrollToEnd}
-        className="fixed bottom-10 right-10 max-sm:right-5 max-sm:bottom-5 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
+        className={`fixed ${
+          isPlaying && isPlaying !== 400
+            ? "bottom-40 max-lg:bottom-50 max-md:bottom-65 max-sm:bottom-70"
+            : "bottom-10"
+        } bottom-10 right-10 max-sm:right-5 max-sm:bottom-5 bg-primary/80 hover:bg-primary text-background p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -227,6 +231,7 @@ const SurahDetails = () => {
                       x="0"
                       y="0"
                       viewBox="0 0 32 32"
+                      className="w-12 h-12"
                     >
                       <path d="M13 28H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6H8v20zM25 28h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1zm-5-2h4V6h-4v20z" />
                     </svg>
@@ -411,9 +416,8 @@ const SurahDetails = () => {
       </div>
       {isPlaying && isPlaying !== 400 ? (
         <div className="fixed bottom-0 left-0 right-0 bg-emerald-900 border-t border-emerald-700 shadow-lg z-50">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <div className="flex items-center justify-center gap-4">
-              {/* Back Button */}
+          <div className="max-w-7xl mx-auto p-[2rem] max-md:p-[4rem]">
+            <div className="flex items-center justify-center gap-[2rem] ">
               <button
                 onClick={() => {
                   if (isPlaying > 1) {
@@ -421,14 +425,14 @@ const SurahDetails = () => {
                   }
                 }}
                 disabled={isPlaying <= 1}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${
                   isPlaying <= 1
                     ? "bg-emerald-800 opacity-50 cursor-not-allowed"
                     : "bg-emerald-700 hover:bg-emerald-600"
                 }`}
               >
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-12 h-12 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -444,10 +448,10 @@ const SurahDetails = () => {
                       setIsPaused(false);
                     }
                   }}
-                  className="w-14 h-14 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                  className="w-18 h-18 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
                 >
                   <svg
-                    className="w-7 h-7 text-emerald-900 ml-1"
+                    className="w-12 h-12 text-emerald-900 ml-1"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -462,10 +466,10 @@ const SurahDetails = () => {
                       setIsPaused(true);
                     }
                   }}
-                  className="w-14 h-14 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
+                  className="w-18 h-18 rounded-full bg-white hover:bg-emerald-100 flex items-center justify-center transition-colors"
                 >
                   <svg
-                    className="w-7 h-7 text-emerald-900"
+                    className="w-12 h-12 text-emerald-900"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -483,14 +487,14 @@ const SurahDetails = () => {
                   }
                 }}
                 disabled={isPlaying >= surah.numberOfAyahs}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${
                   isPlaying >= surah.numberOfAyahs
                     ? "bg-emerald-800 opacity-50 cursor-not-allowed"
                     : "bg-emerald-700 hover:bg-emerald-600"
                 }`}
               >
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-12 h-12 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -507,7 +511,7 @@ const SurahDetails = () => {
                   setIsPaused(false);
                   setCurAudio(null);
                 }}
-                className="w-10 h-10 rounded-full bg-red-700 hover:bg-red-600 flex items-center justify-center transition-colors ml-2"
+                className="w-10 h-10 ml-[2rem] rounded-full bg-red-700 hover:bg-red-600 flex items-center justify-center transition-colors ml-2"
               >
                 <svg
                   className="w-5 h-5 text-white"

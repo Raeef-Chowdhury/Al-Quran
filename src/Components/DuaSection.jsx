@@ -9,7 +9,6 @@ function DuaSection() {
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 37);
     const dua = duas[randomNumber];
-    console.log(dua, randomNumber);
 
     setDua(dua);
   }, []);
