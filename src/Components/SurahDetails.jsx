@@ -139,7 +139,7 @@ const SurahDetails = () => {
   };
 
   return (
-    <div className="max-w-[1440px] 2xl:max-w-[1288px] lg:max-w-[744px] md:max-w-[588px] sm:max-w-[424px] max-sm:max-w-[240px] xl:max-w-[1028px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
+    <div className="max-w-[1440px] 2xl:max-w-[1288px] lg:max-w-[744px]  min-[280px]:max-w-[234px] min-[350px]:max-w-[288px] min-[400px]:max-w-[344px] md:max-w-[624px] xl:max-w-[1028px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
       {" "}
       <div className="fixed top-0 left-0 w-full h-[8px] bg-background/5 z-[9999]">
         <div
@@ -295,7 +295,7 @@ const SurahDetails = () => {
                     : isMemorized.includes(ayah.numberInSurah)
                     ? "text-secondary"
                     : ""
-                } text-[3.6rem] max-w-[90%] max-md:text-center max-md:max-w-[100%] max-md:ml-[0rem] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
+                } text-[3.6rem] text-text max-w-[90%] max-md:text-center max-md:max-w-[100%] max-md:ml-[0rem] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
               >
                 {ayah.text}
               </p>
@@ -305,7 +305,7 @@ const SurahDetails = () => {
                   isPlaying === ayah.numberInSurah
                     ? "text-primary"
                     : "text-text"
-                }text-center  min-md:text-right leading-relaxed font-light italic  max-md:max-w-[100%] max-md:ml-[0rem]  max-w-[90%] ml-auto`}
+                }text-center  min-md:text-right leading-relaxed font-light italic text-tertiary  max-md:max-w-[100%] max-md:ml-[0rem]  max-w-[90%] ml-auto`}
               >
                 {translation?.ayahs[index]?.text}
               </p>
