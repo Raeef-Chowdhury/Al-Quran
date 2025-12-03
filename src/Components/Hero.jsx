@@ -19,12 +19,12 @@ function Hero() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       id="hero"
-      className="hero__section bg-background text-center  max-w-[1600px]  items-center flex flex-col gap-[1.8rem]"
+      className="hero__section bg-background text-center max-w-[1600px] items-center flex flex-col gap-[1.8rem]"
     >
-      <h1 className="text-[9.6rem] text-primary font-bold tracking-[0.5rem] ">
+      <h1 className="text-[7rem] my-10 sm:mt-0 sm:text-[9.6rem] text-primary font-bold sm:tracking-[0.5rem] ">
         The Holy Quran
       </h1>
-      <p className="hero__extra--info text-text text-[2rem] max-w-[640px]">
+      <p className="hero__extra--info text-text text-[2rem] md:text-[3rem] w-full px-5 md:max-w-[640px]">
         Reflect on the divine widsom of the Quran and find the detailed verses,
         recitaitons and duas in english and arabic
       </p>
