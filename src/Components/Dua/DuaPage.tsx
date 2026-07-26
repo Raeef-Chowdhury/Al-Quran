@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable react/prop-types */ const excludeArr = [
+const excludeArr = [
   "Bathroom",
   "Mosque",
   "Eating",
@@ -10,10 +9,12 @@
   "Travel",
   "Weather",
 ];
-import Header from "./Header";
+import Dua from "../../Types/Dua";
+
+import Header from "../Header";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import duas from "../Data/daily-duas.json";
+import duas from "../../Data/daily-duas.json";
 
 function DuaPage() {
   const [dua, setDua] = useState([]);
@@ -30,7 +31,7 @@ function DuaPage() {
     const filtered = duas.filter(
       (d) =>
         d.title.toLowerCase().includes(search.toLowerCase()) ||
-        d.translation.toLowerCase().includes(search.toLowerCase())
+        d.translation.toLowerCase().includes(search.toLowerCase()),
     );
 
     setDua(filtered);
@@ -132,7 +133,7 @@ function DuaPage() {
     </>
   );
 }
-function DuaCard({ dua }) {
+function DuaCard({ dua }: { dua: Dua }) {
   return (
     <>
       <Link to={`/duas/${dua.number}`}>
@@ -143,46 +144,50 @@ function DuaCard({ dua }) {
                 {dua.category === "Home"
                   ? "🏠"
                   : dua.category === "Sleep"
-                  ? "😴"
-                  : dua.category === "Morning"
-                  ? "🌅"
-                  : dua.category === "Bathroom"
-                  ? "🚿"
-                  : dua.category === "Eating"
-                  ? "🍽️"
-                  : dua.category === "Mosque"
-                  ? "🕌"
-                  : dua.category === "Ablution"
-                  ? "💧"
-                  : dua.category === "Fasting"
-                  ? "🌙"
-                  : dua.category === "Travel"
-                  ? "✈️"
-                  : dua.category === "Clothing"
-                  ? "👕"
-                  : dua.category === "Weather"
-                  ? "🌦️"
-                  : dua.category === "General"
-                  ? "📿"
-                  : dua.category === "Difficulty"
-                  ? "🤲"
-                  : dua.category === "Financial"
-                  ? "💰"
-                  : dua.category === "Social Etiquette"
-                  ? "🤝"
-                  : dua.category === "Protection"
-                  ? "🛡️"
-                  : dua.category === "Prayer"
-                  ? "🕌"
-                  : dua.category === "Health"
-                  ? "🏥"
-                  : dua.category === "Knowledge"
-                  ? "📚"
-                  : dua.category === "Family"
-                  ? "👨‍👩‍👧‍👦"
-                  : dua.category === "Death"
-                  ? "🕊️"
-                  : "📖"}
+                    ? "😴"
+                    : dua.category === "Morning"
+                      ? "🌅"
+                      : dua.category === "Bathroom"
+                        ? "🚿"
+                        : dua.category === "Eating"
+                          ? "🍽️"
+                          : dua.category === "Mosque"
+                            ? "🕌"
+                            : dua.category === "Ablution"
+                              ? "💧"
+                              : dua.category === "Fasting"
+                                ? "🌙"
+                                : dua.category === "Travel"
+                                  ? "✈️"
+                                  : dua.category === "Clothing"
+                                    ? "👕"
+                                    : dua.category === "Weather"
+                                      ? "🌦️"
+                                      : dua.category === "General"
+                                        ? "📿"
+                                        : dua.category === "Difficulty"
+                                          ? "🤲"
+                                          : dua.category === "Financial"
+                                            ? "💰"
+                                            : dua.category ===
+                                                "Social Etiquette"
+                                              ? "🤝"
+                                              : dua.category === "Protection"
+                                                ? "🛡️"
+                                                : dua.category === "Prayer"
+                                                  ? "🕌"
+                                                  : dua.category === "Health"
+                                                    ? "🏥"
+                                                    : dua.category ===
+                                                        "Knowledge"
+                                                      ? "📚"
+                                                      : dua.category ===
+                                                          "Family"
+                                                        ? "👨‍👩‍👧‍👦"
+                                                        : dua.category ===
+                                                            "Death"
+                                                          ? "🕊️"
+                                                          : "📖"}
               </span>
               {dua.category}
             </div>

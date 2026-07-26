@@ -1,13 +1,12 @@
 import "./App.css";
 import Header from "./Components/Header";
 import Hero from "./Components/Hero";
-import SurahSection from "./Components/SurahSection";
-import DuaSection from "./Components/DuaSection";
-import PrayerTimes from "./Components/PrayerSection";
+import SurahSection from "./Components/Surah/SurahSection";
+import DuaSection from "./Components/Dua/DuaSection";
+import PrayerTimes from "./Components/Prayer/PrayerSection";
 import { useState, useEffect } from "react";
 import { initGA } from "./utils/analytics";
 
-//TODO: Analytics, post on discord/reddit
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
   const [surahs, setSurahs] = useState([]);

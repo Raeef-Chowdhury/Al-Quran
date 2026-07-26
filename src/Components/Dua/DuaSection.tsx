@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import duas from "../Data/daily-duas.json";
+import duas from "../../Data/daily-duas.json";
 import { Link } from "react-router-dom";
-import Button from "./Button";
+import Button from "../Button";
+import { Dua } from "../../Types/Dua";
 function DuaSection() {
-  const [dua, setDua] = useState([]);
+  const [dua, setDua] = useState<Dua>([]);
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 37);
     const dua = duas[randomNumber];
@@ -38,7 +39,6 @@ function DuaSection() {
         arabic={dua.arabic}
         latin={dua.latin}
         translation={dua.translation}
-        notes={dua.notes}
         benefits={dua.benefits}
         source={dua.source}
         number={dua.number}
@@ -47,7 +47,7 @@ function DuaSection() {
     </motion.section>
   );
 }
-function DuaCard({ title, arabic, latin, translation, number }) {
+function DuaCard({ title, arabic, latin, translation, number }: Dua) {
   return (
     <Link to={`/duas/${number}`}>
       <div className="max-w-[1200px] max-md:max-w-[424px] max-2xl:max-w-[628px] max-sm:max-w-[244px] mx-auto group relative shadow-2xl p-[3rem] rounded-2xl bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:border-primary/60 transition-all duration-300">

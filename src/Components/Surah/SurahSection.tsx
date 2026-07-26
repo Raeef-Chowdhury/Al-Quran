@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import Button from "./Button";
+import Button from "../Button";
 /* eslint-disable react/prop-types */
 function SurahSection({ surahs }) {
   return (

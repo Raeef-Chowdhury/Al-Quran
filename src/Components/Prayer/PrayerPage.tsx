@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../Header";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 function PrayerPage() {
@@ -42,7 +42,7 @@ function PrayerPage() {
 
   const calculateStreak = () => {
     const sortedDates = Object.keys(history).sort(
-      (a, b) => new Date(b) - new Date(a)
+      (a, b) => new Date(b) - new Date(a),
     );
 
     if (sortedDates.length === 0) {
@@ -107,7 +107,7 @@ function PrayerPage() {
 
       // Now fetch holidays with the year we just got
       const holidaysRes = await fetch(
-        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${fetchedYear}`
+        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${fetchedYear}`,
       );
       const holidaysData = await holidaysRes.json();
 
@@ -154,7 +154,7 @@ function PrayerPage() {
   const progress = (completedCount / 5) * 100;
 
   const currentHijriDate = dates.find(
-    (d) => d.gregorian.date === formattedDate
+    (d) => d.gregorian.date === formattedDate,
   );
 
   return (
@@ -301,8 +301,8 @@ function PrayerPage() {
                         {event.hijri.date === `01-01-${hijriYear}`
                           ? "Islamic New Year"
                           : event.hijri.date === `01-09-${hijriYear}`
-                          ? "Ramadan"
-                          : event.hijri.holidays[0]}
+                            ? "Ramadan"
+                            : event.hijri.holidays[0]}
                       </span>
                       <div className="flex items-center justify-around max-sm:flex-col max-sm:gap-2">
                         <span className="text-[2rem] max-sm:text-[1.6rem] text-left max-sm:text-center text-text/70 group-hover:text-text/90 transition-colors duration-300 block">
@@ -312,14 +312,14 @@ function PrayerPage() {
                         <span className="text-[1.8rem] max-sm:text-[1.4rem] text-amber transition-colors duration-300 block">
                           {(() => {
                             const daysUntil = getDaysUntil(
-                              event.gregorian.date
+                              event.gregorian.date,
                             );
 
                             return daysUntil > 0
                               ? `In ${daysUntil} days`
                               : daysUntil === 0
-                              ? "Today"
-                              : "Passed";
+                                ? "Today"
+                                : "Passed";
                           })()}
                         </span>
                       </div>

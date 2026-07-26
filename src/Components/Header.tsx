@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
@@ -70,7 +69,7 @@ function HeaderContent({ currentPath }) {
       root.style.setProperty("--color-header", "oklch(26.6% 0.065 152.934)");
       root.style.setProperty(
         "--color-light-blue",
-        "oklch(90.1% 0.058 230.902)"
+        "oklch(90.1% 0.058 230.902)",
       );
       root.style.setProperty("--color-amber", "oklch(92.4% 0.12 95.746)");
       root.style.setProperty("--color-slate", "oklch(37.2% 0.044 257.287)");
@@ -83,7 +82,7 @@ function HeaderContent({ currentPath }) {
       root.style.setProperty("--color-text", "#102107");
       root.style.setProperty(
         "--color-light-blue",
-        "oklch(62.3% 0.214 259.815)"
+        "oklch(62.3% 0.214 259.815)",
       );
       root.style.setProperty("--color-header", "oklch(85.5% 0.138 181.071)");
       root.style.setProperty("--color-amber", "oklch(55.5% 0.163 48.998)");

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import Button from "./Button";
+import Button from "../Button";
 
 const prayers = [
   { name: "Fajr", arabicName: "الفجر" },
@@ -36,7 +36,7 @@ function PrayerTimes() {
         (error) => {
           console.log("Geolocation error:", error.code, error.message);
           setHasLocation(false);
-        }
+        },
       );
     } else {
       setHasLocation(false);
@@ -68,10 +68,10 @@ function PrayerTimes() {
         // Fetch both location name and prayer times
         const [locationRes, timingsRes] = await Promise.all([
           fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
           ),
           fetch(
-            `https://api.aladhan.com/v1/timings/${formattedDate}?latitude=${latitude}&longitude=${longitude}&method=4&adjustment=1`
+            `https://api.aladhan.com/v1/timings/${formattedDate}?latitude=${latitude}&longitude=${longitude}&method=4&adjustment=1`,
           ),
         ]);
 
@@ -267,10 +267,10 @@ function PrayerTimes() {
               {new Date().getHours() < 10
                 ? `0${new Date().getHours()}`
                 : new Date().getHours() === 0
-                ? 12
-                : new Date().getHours() > 12
-                ? new Date().getHours() - 12
-                : new Date().getHours()}
+                  ? 12
+                  : new Date().getHours() > 12
+                    ? new Date().getHours() - 12
+                    : new Date().getHours()}
               :
               {new Date().getMinutes() < 10
                 ? `0${new Date().getMinutes()}`

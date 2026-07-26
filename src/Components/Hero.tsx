@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import { motion } from "motion/react";
 import ayahQuotes from "../Data/quran.json";
 import { useEffect, useState } from "react";
+import { Ayah } from "../Types/Surah";
 
 function Hero() {
-  const [randomAyah, setRandomAyah] = useState(null);
+  const [randomAyah, setRandomAyah] = useState<Ayah>();
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 23) + 1;
@@ -59,7 +59,7 @@ function Hero() {
     </motion.section>
   );
 }
-function AyahText({ ayahText }) {
+function AyahText({ ayahText }: { ayahText: string }) {
   return <p className="hero__text text-text text-[2.4rem] ">{ayahText}</p>;
 }
 export default Hero;
