@@ -19,3 +19,8 @@ export interface Dua {
     | "Weather"
     | "Clothing";
 }
+export interface DuaBtn {
+  bg: string;
+  category: string;
+  setCategory: (category: string) => void;
+}

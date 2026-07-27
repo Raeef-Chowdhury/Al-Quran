@@ -1,13 +1,31 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import Button from "../Button";
-
-const prayers = [
-  { name: "Fajr", arabicName: "الفجر" },
-  { name: "Dhuhr", arabicName: "الظهر" },
-  { name: "Asr", arabicName: "العصر" },
-  { name: "Maghrib", arabicName: "المغرب" },
-  { name: "Isha", arabicName: "العشاء" },
+import { Prayers } from "../../Types/Prayer";
+import { GeolocationPosition } from "../../Types/Prayer";
+import { PrayerName } from "../../Types/Prayer";
+const prayers: Prayers[] = [
+  {
+    name: "Fajr",
+    arabicName: "الفجر",
+    description: "The first prayer of the day before the sun rises",
+  },
+  { name: "Dhuhr", arabicName: "الظهر", description: "The midday prayer" },
+  {
+    name: "Asr",
+    arabicName: "العصر",
+    description: "The evening prayer before sunset",
+  },
+  {
+    name: "Maghrib",
+    arabicName: "المغرب",
+    description: "The prayer done after sunset",
+  },
+  {
+    name: "Isha",
+    arabicName: "العشاء",
+    description: "The last prayer of the day",
+  },
 ];
 
 const date = new Date();
@@ -17,9 +35,9 @@ const year = new Date().getFullYear();
 const formattedDate = `${day}-${month}-${year}`;
 
 function PrayerTimes() {
-  const [curPrayer, setCurPrayer] = useState("");
-  const [hasLocation, setHasLocation] = useState(null);
-  const [nextPrayer, setNextPrayer] = useState("");
+  const [hasLocation, setHasLocation] = useState<boolean>(false);
+  const [curPrayer, setCurPrayer] = useState<PrayerName | null>(null);
+  const [nextPrayer, setNextPrayer] = useState<PrayerName | null>(null);
   const [location, setLocation] = useState({
     city: "",
     country: "",
@@ -53,13 +71,15 @@ function PrayerTimes() {
         }
 
         // Get geolocation coordinates
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, {
-            timeout: 10000,
-            maximumAge: 300000,
-            enableHighAccuracy: false,
-          });
-        });
+        const position = await new Promise<GeolocationPosition>(
+          (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              timeout: 10000,
+              maximumAge: 300000,
+              enableHighAccuracy: false,
+            });
+          },
+        );
 
         if (!mounted) return;
 
@@ -109,18 +129,18 @@ function PrayerTimes() {
     };
   }, []);
 
-  function getTimeDifference(timeStr) {
+  function getTimeDifference(timeStr: string) {
     if (!timeStr) return "";
 
     const [hour, minute] = timeStr.split(":").map(Number);
-    const now = new Date();
-    const prayer = new Date();
+    const now: Date = new Date();
+    const prayer: Date = new Date();
 
     prayer.setHours(hour, minute, 0, 0);
 
     if (prayer <= now) prayer.setDate(prayer.getDate() + 1);
 
-    const diffMs = prayer - now;
+    const diffMs = Number(prayer) - Number(now);
     const hours = Math.floor(diffMs / 3600000);
     const minutes = Math.floor((diffMs % 3600000) / 60000);
 
@@ -131,7 +151,7 @@ function PrayerTimes() {
     if (!timings) return;
 
     setCurrentTime(new Date());
-    const timeToMinutes = (timeStr) => {
+    const timeToMinutes = (timeStr: string) => {
       const [hours, minutes] = timeStr.split(":").map(Number);
       return hours * 60 + minutes;
     };

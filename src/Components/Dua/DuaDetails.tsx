@@ -1,15 +1,21 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import duas from "../../Data/daily-duas.json";
+import duasData from "../../Data/daily-duas.json";
+import { Dua } from "../../Types/Dua";
 function DuaDetails() {
   const { id } = useParams();
+  const duas = duasData as Dua[];
 
-  const [dua, setDua] = useState([]);
+  const [dua, setDua] = useState<Dua | undefined>(undefined);
   useEffect(() => {
-    const foundDua = duas.find((dua) => dua.number === Number(id));
-    setDua(foundDua || duas);
+    const foundDua: Dua | undefined = duas.find(
+      (dua) => dua.number === Number(id),
+    );
+    setDua(foundDua);
   }, [id]);
-
+  if (!dua) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       <div className="flex justify-center flex-col  items-center mb-[3.2rem] pt-[4.8rem]">
@@ -22,37 +28,25 @@ function DuaDetails() {
               ? "🏠"
               : dua.category === "Sleep"
                 ? "😴"
-                : dua.category === "Morning"
-                  ? "🌅"
-                  : dua.category === "Bathroom"
-                    ? "🚿"
-                    : dua.category === "Eating"
-                      ? "🍽️"
-                      : dua.category === "Mosque"
-                        ? "🕌"
-                        : dua.category === "Ablution"
-                          ? "💧"
-                          : dua.category === "Fasting"
-                            ? "🌙"
-                            : dua.category === "Travel"
-                              ? "✈️"
-                              : dua.category === "Clothing"
-                                ? "👕"
-                                : dua.category === "Weather"
-                                  ? "🌦️"
-                                  : dua.category === "General"
-                                    ? "📿"
-                                    : dua.category === "Difficulty"
-                                      ? "🤲"
-                                      : dua.category === "Financial"
-                                        ? "💰"
-                                        : dua.category === "Social Etiquette"
-                                          ? "🤝"
-                                          : dua.category === "Protection"
-                                            ? "🛡️"
-                                            : dua.category === "Prayer"
-                                              ? "🕌"
-                                              : "📖"}
+                : dua.category === "Bathroom"
+                  ? "🚿"
+                  : dua.category === "Eating"
+                    ? "🍽️"
+                    : dua.category === "Mosque"
+                      ? "🕌"
+                      : dua.category === "Travel"
+                        ? "✈️"
+                        : dua.category === "Clothing"
+                          ? "👕"
+                          : dua.category === "Weather"
+                            ? "🌦️"
+                            : dua.category === "General"
+                              ? "📿"
+                              : dua.category === "Protection"
+                                ? "🛡️"
+                                : dua.category === "Prayer"
+                                  ? "🕌"
+                                  : "📖"}
 
             {dua.category}
           </span>
