@@ -7,7 +7,7 @@ import { SurahFiltering } from "../../../Types/Surah";
 function SurahPage() {
   const [quranSearch, setQuranSearch] = useState<string>("");
   const [surahs, setSurahs] = useState<Surah[]>([]);
-  const [allSurahs, setAllSurahs] = useState([]);
+  const [allSurahs, setAllSurahs] = useState<Surah[]>([]);
   const [bgState, setBgState] = useState<string>("all");
 
   useEffect(() => {
@@ -109,12 +109,11 @@ function SurahPage() {
             return (
               <QuranCard
                 key={surah.number}
-                verseLen={surah.ayahs}
                 englishName={surah.englishName}
-                arabicName={surah.name}
-                englishTranslation={surah.englishNameTranslation}
-                revelation={surah.revelationType}
-                numberAyahs={surah.numberOfAyahs}
+                name={surah.name}
+                englishNameTranslation={surah.englishNameTranslation}
+                revelationType={surah.revelationType}
+                numberOfAyahs={surah.numberOfAyahs}
                 number={surah.number}
               />
             );

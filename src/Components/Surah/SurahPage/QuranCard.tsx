@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import { Surah } from "../../../Types/Surah";
 export default function QuranCard({
-  numberAyahs,
   englishName,
-  arabicName,
-  englishTranslation,
-  revelation,
+  name,
+  englishNameTranslation,
+  revelationType,
+  numberOfAyahs,
   number,
-}) {
+}: Surah) {
   return (
     <li className="max-h-[40rem] quran__page--card max-sm:max-w-[320px] max-sm:mx-auto  relative bg-gradient-to-br hover:translate-y-[-2rem]  quran__card from-shade  to-primary border-2 border-slate-100 hover:border-teal-400 rounded-3xl p-6 transition-all duration-300 cursor-pointer hover:shadow-2xl  group overflow-hidden ">
       <Link to={`/surahs/${number}`}>
@@ -31,18 +32,18 @@ export default function QuranCard({
               className="text-background  text-[2.4rem] font-semibold"
               style={{ fontFamily: "serif" }}
             >
-              {arabicName}
+              {name}
             </p>
           </div>
           <p className="text-text  text-[1.8rem] text-left font-medium ">
-            {englishTranslation}
+            {englishNameTranslation}
           </p>
         </div>
 
         <div className=" justify-between flex items-center gap-2 pt-4 border-t border-slate-200">
           <div
             className={`flex gap-[0.8rem] quran__badge ${
-              numberAyahs > 100 ? "text-[1.2rem]" : "text-[1.4rem]"
+              numberOfAyahs > 100 ? "text-[1.2rem]" : "text-[1.4rem]"
             } items-center rounded-full text-sm font-semibold border bg-green-300 text-green-700 border-green-200`}
           >
             <svg
@@ -58,10 +59,10 @@ export default function QuranCard({
                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
               />
             </svg>
-            <span className="">{numberAyahs} Verses</span>
+            <span className="">{numberOfAyahs} Verses</span>
           </div>
           <span className="quran__badge text-[1.6rem] rounded-full text-sm font-semibold border bg-amber-300 text-amber-700 border-amber-200">
-            {revelation}
+            {revelationType}
           </span>
         </div>
       </Link>

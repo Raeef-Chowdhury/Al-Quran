@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Surah } from "../../Types/Surah";
 
 const SurahDetails = () => {
   const endOfSurah = useRef(null);
   const startOfSurah = useRef(null);
   const playingAyah = useRef(null);
   const { id } = useParams();
-  const [surah, setSurah] = useState(null);
+  const [surah, setSurah] = useState<Surah | null>(null);
   const [curAudio, setCurAudio] = useState("");
   const [translation, setTranslation] = useState(null);
   const [isPlaying, setIsPlaying] = useState(null);
@@ -33,7 +34,7 @@ const SurahDetails = () => {
       setIsInitialized(false);
       try {
         const res = await fetch(
-          `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.asad`
+          `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.asad`,
         );
         const data = await res.json();
 
@@ -98,7 +99,7 @@ const SurahDetails = () => {
     setIsMemorized((prev) =>
       prev.includes(ayahNumberInSurah)
         ? prev.filter((n) => n !== ayahNumberInSurah)
-        : [...prev, ayahNumberInSurah]
+        : [...prev, ayahNumberInSurah],
     );
   };
 
@@ -108,7 +109,7 @@ const SurahDetails = () => {
     }
 
     const audio = new Audio(
-      `https://the-quran-project.github.io/Quran-Audio/Data/1/${surah.number}_${ayahNumberInSurah}.mp3`
+      `https://the-quran-project.github.io/Quran-Audio/Data/1/${surah.number}_${ayahNumberInSurah}.mp3`,
     );
 
     audio.play().catch((err) => console.error("Error playing audio:", err));
@@ -195,7 +196,7 @@ const SurahDetails = () => {
         </svg>
       </button>
       <ul className="flex flex-col gap-[8rem] text-center  min-md:text-right mx-auto ">
-        {surah.ayahs.map((ayah, index) => (
+        {surah.ayahs.map((ayah: Ayah, index: number) => (
           <li
             key={ayah.number}
             className={`  ${
@@ -203,10 +204,10 @@ const SurahDetails = () => {
               isPlaying === ayah.numberInSurah
                 ? "bg-shade "
                 : isMemorized.includes(ayah.numberInSurah)
-                ? "bg-primary"
-                : isPlaying == ayah.numberInSurah
-                ? "bg-primary/40 hover:bg-primary/50"
-                : "bg-primary/10 hover:bg-primary/20"
+                  ? "bg-primary"
+                  : isPlaying == ayah.numberInSurah
+                    ? "bg-primary/40 hover:bg-primary/50"
+                    : "bg-primary/10 hover:bg-primary/20"
             } group flex max-md:flex-col max-md:gap-[4rem] justify-between  shadow-2xl text-center  min-md:text-right relative p-[3rem] rounded-2xl  border border-primary/30  hover:border-primary/60 transition-all duration-300`}
           >
             <div className="flex min-md:flex-col   gap-[2.4rem] items-center max-md:justify-center">
@@ -293,8 +294,8 @@ const SurahDetails = () => {
                   isPlaying === ayah.numberInSurah
                     ? "text-background"
                     : isMemorized.includes(ayah.numberInSurah)
-                    ? "text-secondary"
-                    : ""
+                      ? "text-secondary"
+                      : ""
                 } text-[3.6rem] text-text max-w-[90%] max-md:text-center max-md:max-w-[100%] max-md:ml-[0rem] ml-[2rem] leading-snug  font-arabic mb-[2rem] `}
               >
                 {ayah.text}

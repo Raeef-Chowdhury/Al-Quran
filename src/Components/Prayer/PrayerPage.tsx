@@ -2,6 +2,23 @@ import { useEffect, useState } from "react";
 import Header from "../Header";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import { PrayerEvent } from "../../Types/Prayer";
+import { HjiriAndGeogianInfo } from "../../Types/Prayer";
+interface PrayerBooleansType {
+  fajr: boolean;
+  dhuhr: boolean;
+  asr: boolean;
+  maghrib: boolean;
+  isha: boolean;
+}
+const PrayerBooleans: PrayerBooleansType = {
+  fajr: false,
+  dhuhr: false,
+  asr: false,
+  maghrib: false,
+  isha: false,
+};
+type PrayerKey = keyof PrayerBooleansType;
 function PrayerPage() {
   const date = new Date();
   const day = date.getDate();
@@ -10,20 +27,14 @@ function PrayerPage() {
   const [loading, setLoading] = useState(true);
   const year = date.getFullYear();
   const formattedDate = `${day}-${month}-${year}`;
-  const [dates, setDates] = useState([]);
+  const [dates, setDates] = useState<HjiriAndGeogianInfo[]>([]);
   const [currentStreak, setCurrentStreak] = useState(0);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<PrayerEvent[]>([]);
   const todayKey = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`;
-  const [history, setHistory] = useState({});
-  const [prayers, setPrayers] = useState({
-    fajr: false,
-    dhuhr: false,
-    asr: false,
-    maghrib: false,
-    isha: false,
-  });
+  const [history, setHistory] = useState<{ [key: string]: any }>({});
+  const [prayers, setPrayers] = useState<PrayerBooleansType>(PrayerBooleans);
   useEffect(() => {
     const savedHistory = localStorage.getItem("prayerHistory");
     if (savedHistory) {
@@ -42,7 +53,7 @@ function PrayerPage() {
 
   const calculateStreak = () => {
     const sortedDates = Object.keys(history).sort(
-      (a, b) => new Date(b) - new Date(a),
+      (a, b) => Number(new Date(b)) - Number(new Date(a)),
     );
 
     if (sortedDates.length === 0) {
@@ -64,7 +75,6 @@ function PrayerPage() {
         const dayPrayers = history[sortedDates[i]];
         const completed = Object.values(dayPrayers).filter(Boolean).length;
 
-        // Count as streak day if at least 5 prayers completed
         if (completed === 5) {
           streak++;
         } else {
@@ -83,7 +93,11 @@ function PrayerPage() {
     { name: "Asr", key: "asr", time: "Afternoon" },
     { name: "Maghrib", key: "maghrib", time: "Sunset" },
     { name: "Isha", key: "isha", time: "Night" },
-  ];
+  ] satisfies {
+    name: string;
+    key: PrayerKey;
+    time: string;
+  }[];
 
   const fetchIslamicData = async () => {
     try {
@@ -132,28 +146,32 @@ function PrayerPage() {
   useEffect(() => {
     fetchIslamicData();
   }, [month]);
-  const getDaysUntil = (eventDate) => {
+  const getDaysUntil = (eventDate: string) => {
     const [day, month, year] = eventDate.split("-");
-    const eventDateTime = new Date(year, month - 1, day);
+    const eventDateTime = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+    );
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const diffTime = eventDateTime - today;
+    const diffTime = Number(eventDateTime) - Number(today);
 
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     return diffDays;
   };
 
-  const togglePrayer = (key) => {
+  const togglePrayer = (key: PrayerKey) => {
     setPrayers((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const completedCount = Object.values(prayers).filter(Boolean).length;
   const progress = (completedCount / 5) * 100;
 
-  const currentHijriDate = dates.find(
+  const currentHijriDate: PrayerEvent | undefined = dates.find(
     (d) => d.gregorian.date === formattedDate,
   );
 

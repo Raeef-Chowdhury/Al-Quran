@@ -18,3 +18,32 @@ interface GeolocationCoordinates {
   heading: number | null;
   speed: number | null;
 }
+
+export interface PrayerEvent {
+  hijri: HjiriAndGeogianInfo;
+  gregorian: HjiriAndGeogianInfo;
+}
+export interface HjiriAndGeogianInfo {
+  date: string;
+  day: string;
+  weekday: PrayerWeekday;
+  month: PrayerMonth;
+  designation: PrayerDesignation;
+  year: string;
+  holidays: string[];
+  method?: string;
+}
+interface PrayerWeekday {
+  ar?: string;
+  en: string;
+}
+interface PrayerMonth {
+  number: number;
+  en: string;
+  ar?: string;
+  days?: number;
+}
+interface PrayerDesignation {
+  abbreviated: string;
+  expanded: string;
+}
