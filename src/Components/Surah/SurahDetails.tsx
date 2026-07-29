@@ -1,21 +1,22 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Surah } from "../../Types/Surah";
+import SurahNavigation from "./SurahNavigation";
 
 const SurahDetails = () => {
-  const endOfSurah = useRef(null);
-  const startOfSurah = useRef(null);
-  const playingAyah = useRef(null);
+  const endOfSurah = useRef<HTMLDivElement | null>(null);
+  const startOfSurah = useRef<HTMLDivElement | null>(null);
+  const playingAyah = useRef<HTMLButtonElement | null>(null);
   const { id } = useParams();
   const [surah, setSurah] = useState<Surah | null>(null);
-  const [curAudio, setCurAudio] = useState("");
+  const [curAudio, setCurAudio] = useState<HTMLAudioElement | null>(null);
   const [translation, setTranslation] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPlaying, setIsPlaying] = useState<number | null>(null);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMemorized, setIsMemorized] = useState([]);
+  const [isMemorized, setIsMemorized] = useState<number[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const navigate = useNavigate();
 
@@ -67,11 +68,12 @@ const SurahDetails = () => {
   }, [isMemorized, id, isInitialized]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!surah) return;
       if (e.key === "ArrowRight") {
-        navigate(`/surahs/${surah.number + 1}`); // go to next page
+        navigate(`/surahs/${surah.number + 1}`);
       } else if (e.key === "ArrowLeft") {
-        navigate(`/surahs/${surah.number - 1}`); // go to previous page
+        navigate(`/surahs/${surah.number - 1}`);
       }
     };
 
@@ -95,7 +97,7 @@ const SurahDetails = () => {
   if (loading || !surah) {
     return <p className="text-text">Loading surah </p>;
   }
-  const handleMemorized = (ayahNumberInSurah) => {
+  const handleMemorized = (ayahNumberInSurah: number) => {
     setIsMemorized((prev) =>
       prev.includes(ayahNumberInSurah)
         ? prev.filter((n) => n !== ayahNumberInSurah)
@@ -103,7 +105,7 @@ const SurahDetails = () => {
     );
   };
 
-  const playAyah = (ayahNumberInSurah) => {
+  const playAyah = (ayahNumberInSurah: number) => {
     if (curAudio) {
       curAudio.pause();
     }
@@ -118,7 +120,6 @@ const SurahDetails = () => {
     setIsPlaying(ayahNumberInSurah);
 
     setIsPaused(false);
-    // When audio ends, reset
     audio.onended = () => {
       const nextAyahNumber = ayahNumberInSurah + 1;
 
@@ -129,7 +130,6 @@ const SurahDetails = () => {
       }
     };
   };
-
   const pauseAyah = () => {
     if (curAudio) {
       curAudio.pause();
@@ -196,7 +196,7 @@ const SurahDetails = () => {
         </svg>
       </button>
       <ul className="flex flex-col gap-[8rem] text-center  min-md:text-right mx-auto ">
-        {surah.ayahs.map((ayah: Ayah, index: number) => (
+        {surah.ayahs.map((ayah, index: number) => (
           <li
             key={ayah.number}
             className={`  ${
@@ -221,7 +221,7 @@ const SurahDetails = () => {
                 {ayah.numberInSurah}
               </div>
               {isPlaying == ayah.numberInSurah ? (
-                <button onClick={() => pauseAyah(ayah.numberInSurah)}>
+                <button onClick={() => pauseAyah()}>
                   <div
                     className={` bg-primary  font-bold rounded-full h-[4rem] w-[4rem] flex items-center justify-center text-[1.6rem] shadow-md`}
                   >
@@ -316,105 +316,7 @@ const SurahDetails = () => {
         ))}
       </ul>
       <div ref={endOfSurah}></div>
-      <div className="mt-[4.8rem]  flex items-center gap-[3rem] self-center">
-        {surah.number > 1 ? (
-          <Link
-            to={`/surahs/${surah.number - 1}`}
-            className="text-[1.8rem] px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem] "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-12 w-12"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Previous Surah
-          </Link>
-        ) : (
-          "   "
-        )}
-        {surah?.number ? (
-          <Link
-            className="text-[1.8rem] px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
-            to="/"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-12 w-12"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1V9.75z"
-              />
-            </svg>
-            Back to Homepage
-          </Link>
-        ) : (
-          ""
-        )}
-        {surah?.number ? (
-          <Link
-            className="text-[1.8rem] px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem]"
-            to="/surahs"
-          >
-            {" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-[2.8rem]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
-              />
-            </svg>
-            Back to Surahs
-          </Link>
-        ) : (
-          ""
-        )}
-        {surah.number < 114 ? (
-          <Link
-            to={`/surahs/${surah.number + 1}`}
-            className="text-[1.8rem] px-[2rem] py-[1rem] text-text  text-bold bg-primary flex items-center gap-[1.2rem] "
-          >
-            Next Surah{" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-12 w-12"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
-        ) : (
-          ""
-        )}
-      </div>
+      <SurahNavigation surah={surah} />
       {isPlaying && isPlaying !== 400 ? (
         <div className="fixed bottom-0 left-0 right-0 bg-emerald-900 border-t border-emerald-700 shadow-lg z-50">
           <div className="max-w-7xl mx-auto p-[2rem] max-md:p-[4rem]">

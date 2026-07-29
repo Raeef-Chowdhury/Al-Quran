@@ -11,6 +11,18 @@ export interface Surah {
   englishNameTranslation: string;
   numberOfAyahs: number;
   revelationType: string;
+  ayahs?: AyahDetails[];
+}
+interface AyahDetails {
+  number: number;
+  text: string;
+  numberInSurah: number;
+  juz: number;
+  manzil: number;
+  page: number;
+  ruku: number;
+  hizbQuarter: number;
+  sajda: boolean;
 }
 export interface SurahFiltering {
   filter: string;
