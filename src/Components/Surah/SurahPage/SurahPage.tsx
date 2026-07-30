@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import QuranCard from "./QuranCard";
 import { Surah } from "../../../Types/Surah";
 import SurahPageFilter from "./SurahPageFilter";
+import { GetQuranDetails } from "../../../API/Quran";
+
 function SurahPage() {
   const [quranSearch, setQuranSearch] = useState<string>("");
   const [surahs, setSurahs] = useState<Surah[]>([]);

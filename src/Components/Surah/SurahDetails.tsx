@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Surah } from "../../Types/Surah";
 import SurahNavigation from "./SurahNavigation";
+import { GetSurahDetails } from "../../API/SurahDetails";
 
 const SurahDetails = () => {
   const endOfSurah = useRef<HTMLDivElement | null>(null);
@@ -34,10 +35,7 @@ const SurahDetails = () => {
     const fetchSurah = async () => {
       setIsInitialized(false);
       try {
-        const res = await fetch(
-          `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.asad`,
-        );
-        const data = await res.json();
+        const data = await GetSurahDetails(id);
 
         const arabic = data.data[0];
         const english = data.data[1];

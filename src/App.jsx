@@ -6,15 +6,14 @@ import DuaSection from "./Components/Dua/DuaSection";
 import PrayerTimes from "./Components/Prayer/PrayerSection";
 import { useState, useEffect } from "react";
 import { initGA } from "./utils/analytics";
-
+import { GetQuranDetails } from "./API/Quran";
 function App() {
   const [quranSearch, setQuranSearch] = useState("");
   const [surahs, setSurahs] = useState([]);
   const [bgState, setBgState] = useState("Home");
   useEffect(() => {
     const fetchSurahs = async () => {
-      const res = await fetch(`https://api.alquran.cloud/v1/surah`);
-      const data = await res.json();
+      const data = await GetQuranDetails();
       setSurahs(data.data);
       console.log(data.data);
     };
