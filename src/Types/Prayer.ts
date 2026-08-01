@@ -18,7 +18,19 @@ interface GeolocationCoordinates {
   heading: number | null;
   speed: number | null;
 }
-
+export interface PrayerTimings {
+  Fajr: string;
+  Sunrise: string;
+  Dhuhr: string;
+  Asr: string;
+  Sunset: string;
+  Maghrib: string;
+  Isha: string;
+  Imsak: string;
+  Midnight: string;
+  Firstthird: string;
+  Lastthird: string;
+}
 export interface PrayerEvent {
   hijri: HjiriAndGeogianInfo;
   gregorian: HjiriAndGeogianInfo;

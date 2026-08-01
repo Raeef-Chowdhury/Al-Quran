@@ -3,7 +3,11 @@ import Header from "../Header";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { PrayerEvent } from "../../Types/Prayer";
-import { HjiriAndGeogianInfo } from "../../Types/Prayer";
+import {
+  GetCurYear,
+  GetHolidaysDate,
+  GetHolidaysThisYear,
+} from "../../API/IslamicDates";
 interface PrayerBooleansType {
   fajr: boolean;
   dhuhr: boolean;
@@ -23,11 +27,13 @@ function PrayerPage() {
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
-  const [hijriYear, setHijriYear] = useState(null);
+  const [hijriYear, setHijriYear] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const year = date.getFullYear();
-  const formattedDate = `${day}-${month}-${year}`;
-  const [dates, setDates] = useState<HjiriAndGeogianInfo[]>([]);
+  const formattedDate = `${day.toString().padStart(2, "0")}-${month
+    .toString()
+    .padStart(2, "0")}-${year}`;
+  const [dates, setDates] = useState<PrayerEvent[]>([]);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [upcomingEvents, setUpcomingEvents] = useState<PrayerEvent[]>([]);
   const todayKey = `${year}-${month.toString().padStart(2, "0")}-${day
@@ -98,32 +104,20 @@ function PrayerPage() {
     key: PrayerKey;
     time: string;
   }[];
-
   const fetchIslamicData = async () => {
     try {
       setLoading(true);
 
-      // Fetch current Islamic year and calendar in parallel
-      const [yearRes, calendarRes] = await Promise.all([
-        fetch(`https://api.aladhan.com/v1/currentIslamicYear`),
-        fetch(`https://api.aladhan.com/v1/gToHCalendar/${month}/${year}`),
-      ]);
-
       const [yearData, calendarData] = await Promise.all([
-        yearRes.json(),
-        calendarRes.json(),
+        GetCurYear(),
+        GetHolidaysDate(month, year),
       ]);
 
-      const fetchedYear = yearData.data;
+      const fetchedYear = String(yearData.data).trim();
       setHijriYear(fetchedYear);
       setDates(calendarData.data);
-      setLoading(false);
 
-      // Now fetch holidays with the year we just got
-      const holidaysRes = await fetch(
-        `https://api.aladhan.com/v1/islamicHolidaysByHijriYear/${fetchedYear}`,
-      );
-      const holidaysData = await holidaysRes.json();
+      const holidaysData = await GetHolidaysThisYear(year);
 
       const targetDates = [
         `01-09-${fetchedYear}`,
@@ -139,10 +133,10 @@ function PrayerPage() {
       setUpcomingEvents(filteredEvents);
     } catch (error) {
       console.error("Error fetching Islamic data:", error);
-      setLoading(false);
+    } finally {
+      setLoading(false); // always reset, success or failure
     }
   };
-
   useEffect(() => {
     fetchIslamicData();
   }, [month]);
@@ -174,7 +168,7 @@ function PrayerPage() {
   const currentHijriDate: PrayerEvent | undefined = dates.find(
     (d) => d.gregorian.date === formattedDate,
   );
-
+  console.log();
   return (
     <section>
       <Header />

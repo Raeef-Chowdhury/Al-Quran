@@ -12,7 +12,7 @@ const SurahDetails = () => {
   const { id } = useParams();
   const [surah, setSurah] = useState<Surah | null>(null);
   const [curAudio, setCurAudio] = useState<HTMLAudioElement | null>(null);
-  const [translation, setTranslation] = useState(null);
+  const [translation, setTranslation] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);

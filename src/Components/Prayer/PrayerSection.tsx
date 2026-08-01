@@ -4,6 +4,11 @@ import Button from "../Button";
 import { Prayers } from "../../Types/Prayer";
 import { GeolocationPosition } from "../../Types/Prayer";
 import { PrayerName } from "../../Types/Prayer";
+import { PrayerTimings } from "../../Types/Prayer";
+import {
+  GetGeolocationDetails,
+  GetPrayerTimings,
+} from "../../API/PrayerTimings";
 const prayers: Prayers[] = [
   {
     name: "Fajr",
@@ -42,7 +47,7 @@ function PrayerTimes() {
     city: "",
     country: "",
   });
-  const [timings, setTimings] = useState(null);
+  const [timings, setTimings] = useState<PrayerTimings | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     if (navigator.geolocation) {
@@ -87,20 +92,14 @@ function PrayerTimes() {
 
         // Fetch both location name and prayer times
         const [locationRes, timingsRes] = await Promise.all([
-          fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
-          ),
-          fetch(
-            `https://api.aladhan.com/v1/timings/${formattedDate}?latitude=${latitude}&longitude=${longitude}&method=4&adjustment=1`,
-          ),
+          GetGeolocationDetails(latitude, longitude),
+          GetPrayerTimings(formattedDate, latitude, longitude),
         ]);
 
         if (!mounted) return;
 
-        const [locationData, timingsData] = await Promise.all([
-          locationRes.json(),
-          timingsRes.json(),
-        ]);
+        const locationData = locationRes;
+        const timingsData = timingsRes;
 
         if (mounted) {
           const city =
