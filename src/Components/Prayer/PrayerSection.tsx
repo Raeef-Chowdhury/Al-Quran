@@ -5,6 +5,7 @@ import { Prayers } from "../../Types/Prayer";
 import { GeolocationPosition } from "../../Types/Prayer";
 import { PrayerName } from "../../Types/Prayer";
 import { PrayerTimings } from "../../Types/Prayer";
+import ErrorMsg from "../ErrorMsg";
 import {
   GetGeolocationDetails,
   GetPrayerTimings,
@@ -43,6 +44,7 @@ function PrayerTimes() {
   const [hasLocation, setHasLocation] = useState<boolean>(false);
   const [curPrayer, setCurPrayer] = useState<PrayerName | null>(null);
   const [nextPrayer, setNextPrayer] = useState<PrayerName | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [location, setLocation] = useState({
     city: "",
     country: "",
@@ -117,7 +119,9 @@ function PrayerTimes() {
           }
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        setError(
+          error instanceof Error ? error.message : "Something went wrong.",
+        );
       }
     };
 
@@ -194,7 +198,9 @@ function PrayerTimes() {
     setNextPrayer(next);
   }, [timings]);
 
-  return (
+  return error ? (
+    <ErrorMsg msg={error} />
+  ) : (
     <motion.section
       initial={{ opacity: 0, y: "10rem" }}
       whileInView={{ opacity: 1, y: 0 }}

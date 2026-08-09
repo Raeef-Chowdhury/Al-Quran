@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Surah } from "../../Types/Surah";
 import SurahNavigation from "./SurahNavigation";
 import { GetSurahDetails } from "../../API/SurahDetails";
-
+import ErrorMsg from "../ErrorMsg";
 const SurahDetails = () => {
   const endOfSurah = useRef<HTMLDivElement | null>(null);
   const startOfSurah = useRef<HTMLDivElement | null>(null);
@@ -19,6 +19,7 @@ const SurahDetails = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMemorized, setIsMemorized] = useState<number[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const scrollToEnd = () => {
@@ -50,7 +51,7 @@ const SurahDetails = () => {
         }
         setIsInitialized(true);
       } catch (err) {
-        console.error("Error fetching surah:", err);
+        setError(err instanceof Error ? err.message : String(err));
       } finally {
         setLoading(false);
       }
@@ -92,7 +93,7 @@ const SurahDetails = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  if (loading || !surah) {
+  if ((loading && !error) || (!surah && !error)) {
     return <p className="text-text">Loading surah </p>;
   }
   const handleMemorized = (ayahNumberInSurah: number) => {
@@ -137,7 +138,9 @@ const SurahDetails = () => {
     setIsPaused(true);
   };
 
-  return (
+  return error ? (
+    <ErrorMsg msg={error} />
+  ) : (
     <div className="max-w-[1440px] 2xl:max-w-[1288px] lg:max-w-[744px]  min-[280px]:max-w-[234px] min-[350px]:max-w-[288px] min-[400px]:max-w-[344px] md:max-w-[624px] xl:max-w-[1028px] flex flex-col items-center mx-auto surah__reading bg-background w-[fit-content] h-[fit-content]">
       {" "}
       <div className="fixed top-0 left-0 w-full h-[8px] bg-background/5 z-[9999]">

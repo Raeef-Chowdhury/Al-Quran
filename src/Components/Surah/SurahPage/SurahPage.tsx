@@ -5,19 +5,29 @@ import QuranCard from "./QuranCard";
 import { Surah } from "../../../Types/Surah";
 import SurahPageFilter from "./SurahPageFilter";
 import { GetQuranDetails } from "../../../API/Quran";
+import ErrorMsg from "../../ErrorMsg";
 
 function SurahPage() {
   const [quranSearch, setQuranSearch] = useState<string>("");
   const [surahs, setSurahs] = useState<Surah[]>([]);
   const [allSurahs, setAllSurahs] = useState<Surah[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSurahs = async () => {
-      const data = await GetQuranDetails();
-      setSurahs(data.data);
-      setAllSurahs(data.data);
-    };
+      try {
+        setError(null);
 
+        const data = await GetQuranDetails();
+
+        setSurahs(data.data);
+        setAllSurahs(data.data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        }
+      }
+    };
     fetchSurahs();
   }, []);
   const filterSearch = (search: string) => {
@@ -41,7 +51,9 @@ function SurahPage() {
     filterSearch(quranSearch);
   }, [quranSearch]);
 
-  return (
+  return error ? (
+    <ErrorMsg msg={error} />
+  ) : (
     <>
       <Header />
       <main className="max-w-[1720px] 2xl:max-w-[1720px]  lg:max-w-[1200px] md:max-w-[720px] sm:max-w-[544px] max-sm:max-w-[95%] xl:max-w-[1344px] flex flex-col items-center mx-auto surah__reading w-[fit-content] max-sm:w-full h-[fit-content] px-4 max-sm:px-2">

@@ -3,6 +3,7 @@ import Header from "../Header";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { PrayerEvent } from "../../Types/Prayer";
+import ErrorMsg from "../ErrorMsg";
 import {
   GetCurYear,
   GetHolidaysDate,
@@ -28,6 +29,7 @@ function PrayerPage() {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const [hijriYear, setHijriYear] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const year = date.getFullYear();
   const formattedDate = `${day.toString().padStart(2, "0")}-${month
@@ -132,9 +134,9 @@ function PrayerPage() {
 
       setUpcomingEvents(filteredEvents);
     } catch (error) {
-      console.error("Error fetching Islamic data:", error);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
-      setLoading(false); // always reset, success or failure
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -169,7 +171,9 @@ function PrayerPage() {
     (d) => d.gregorian.date === formattedDate,
   );
   console.log();
-  return (
+  return error ? (
+    <ErrorMsg msg={error} />
+  ) : (
     <section>
       <Header />
       <motion.div
